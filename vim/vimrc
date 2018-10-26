@@ -66,9 +66,7 @@ set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
 
 syntax enable
-set background=dark
-let g:solarized_termcolors=256
-colorscheme IA
+colorscheme CS
 
 let g:fencview_autodetect=1
 let g:fencview_checklines=20
