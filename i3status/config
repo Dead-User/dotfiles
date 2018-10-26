@@ -1,0 +1,111 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        output_format = "i3bar"
+        colors = true
+        color = '#2e9ef0'
+        color_good = '#20f000'
+        color_degarded = '#f0f020'
+        color_bad = '#f04f00'
+}
+
+order += "mpd_status"
+order += "backlight"
+order += "volume_status"
+order += "group battery"
+order += "wireless _first_"
+order += "sysdata"
+order += "tztime local"
+
+
+
+
+
+mpd_status {
+        format = "{state}{title}"
+        hide_when_stopped = "True"
+        hide_on_error = "True"
+        color_pause = '#f0f020'
+        color_play = '#ff80ff'
+}
+
+
+backlight {
+        format = "SRC:{level}"
+        cache_timeout = 1
+}
+
+
+volume_status {
+        format = "\{~{percentage}~\}"
+	channel = "Master"
+        thresholds = [
+            (0, "degarded"),
+            (20, '#ff80ff'),
+            (80, "bad"),
+        ]
+        color_muted = '#3f3f3f'
+        cache_timeout = 1
+}
+
+
+
+group battery {
+        cycle = 5
+        format = "{output}"
+
+        battery_level {
+            format = "BATTERY:{percent}\%\[{ascii_bar}\]"
+            cache_timeout = 60
+            threshold_full = 60
+            threshold_bad = 20
+            color = '#f0f020'
+            color_good = '#2e9ef0'
+        }
+
+
+        battery_level {
+            format = "BATTERY:{percent}\%-{time_remaining} left"
+            cache_timeout = 60
+            threshold_full = 60
+            threshold_bad = 20
+            color = '#f0f020'
+            color_good = '#2e9ef0'
+        }
+}
+
+
+
+
+
+wireless _first_ {
+        format_up = "W:%quality at %essid"
+        format_down = "W: down"
+}
+
+
+
+
+sysdata {
+        
+        thresholds = [
+            (0, ""),
+            (45, "degarded"),
+            (75, "bad"),
+        ]
+        format = "[\?color=temp CPU:{cpu_temp}{temp_unit}], [\?color=cpu {cpu_usage}\% used]"
+        cache_timeout = 5
+}
+
+tztime local {
+        color = '#ff80ff'
+        format = "%Y-%m-%d %H:%M:%S"
+}
+
+
