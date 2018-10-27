@@ -1,31 +1,20 @@
 " Vim color file
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last Change:	2001 Jul 23
+"
+hi clear
 
-" This is the default color scheme.  It doesn't define the Normal
-" highlighting, it uses whatever the colors used to be.
+hi Normal guifg=#EBE4DA ctermfg=231 guibg=#202020
+"line numbers
+hi LineNr guifg=#FFFFFF ctermfg=015
+hi Comment guifg=#870087 ctermfg=090
+hi Keyword guifg=#83696A ctermfg=130
+hi Type guifg=#EBE4DA ctermfg=231
+hi Number guifg=#00E0FF ctermfg=027
+hi Character guifg=#A00000 ctermfg=202
+hi String guifg=#A00000 ctermfg=202
+hi Constant guifg=#5fff00 ctermfg=082
 
-" Set 'background' back to the default.  The value can't always be estimated
-" and is then guessed.
-hi clear Normal
-set bg&
+let colors_name = "color"
 
-hi Normal ctermfg=231
-"line number
-hi LineNr ctermfg=219
-hi Comment ctermfg=090
-hi Keyword ctermfg=130
-hi Type ctermfg=231
-hi Number ctermfg=027
-hi Character ctermfg=202
-hi String ctermfg=202
-hi Constant ctermfg=082
-
-" Load the syntax highlighting defaults, if it's enabled.
-"if exists("syntax_on")
-"  syntax reset
-"endif
-
-let colors_name = "usr0"
+set background=dark
 
 " vim: sw=2

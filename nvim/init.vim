@@ -1,30 +1,3 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2017 Sep 20
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Get the defaults that most users want.
-source $VIMRUNTIME/defaults.vim
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file (restore to previous version)
-  if has('persistent_undo')
-    set undofile	" keep an undo file (undo changes after closing)
-  endif
-endif
 
 if &t_Co > 2 || has("gui_running")
   " Switch on highlighting the last used search pattern.
@@ -51,24 +24,31 @@ else
 
 endif " has("autocmd")
 
+let g:python3_host_prog='/usr/bin/python3'
+
 " Add optional packages.
 "
 " The matchit plugin makes the % command work better, but it is not backwards
 " compatible.
 " The ! means the package won't be loaded right away but when plugins are
 " loaded during initialization.
-if has('syntax') && has('eval')
-  packadd! matchit
-endif
-
-
-execute pathogen#infect()
+"if has('syntax') && has('eval')
+"  packadd! matchit
+"endif
+"
+call plug#begin('~/.config/nvim/plugged')
+Plug 'wlangstroth/vim-racket'
+Plug 'mbbill/fencview'
+Plug '~/.config/nvim/plugged/vim-ibus'
+Plug '~/.config/nvim/plugged/custom-color'
+call plug#end()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
 
+set termguicolors
 syntax enable
-colorscheme CS
+colorscheme cc
 
 let g:fencview_autodetect=1
 let g:fencview_checklines=20
@@ -85,9 +65,21 @@ set nobackup
 
 let mapleader=" "
 
-nnoremap <leader>t :MerlinTypeOf<enter>
+cnoremap w!! w !sudo tee %
+
 nnoremap <leader>s :%s/
 nnoremap <leader>dm :delmarks
+
+"repl setup
+function! Eval()
+  if !exists("s:repl_cmd")
+    let s:repl_cmd = &l:filetype . " "
+  endif
+  execute "!" . s:repl_cmd . expand("%")
+endfunction
+cnoremap repl call Eval()
+
+
 "reverse ` and ' since the former is more useful
 nnoremap ` '
 nnoremap ' `
@@ -104,13 +96,11 @@ nnoremap r k
 nnoremap R <C-u>
 vnoremap r k
 vnoremap R <C-u>
-vnoremap <C-r> gg
 
 nnoremap h j
 nnoremap H <C-d>
 vnoremap h j
 vnoremap H <C-d>
-vnoremap <C-h> G
 
 nnoremap n l
 nnoremap N e

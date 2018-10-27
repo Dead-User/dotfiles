@@ -19,3 +19,5 @@ function fish_user_key_bindings
   bind -M insert \cn 'forward-char'
   bind -M insert \ct 'backward-kill-word'
 end
+
+alias nv nvim
