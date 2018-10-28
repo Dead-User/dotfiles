@@ -21,8 +21,8 @@
             "percent": 0.5,
             "swallows": [
                {
-                "class": "^Sakura$",
-                "instance": "^sakura$",
+                "class": "^Alacritty$",
+                "instance": "^Alacritty$",
                 "transient_for": "^$"
                }
             ],
@@ -42,8 +42,8 @@
             "percent": 0.5,
             "swallows": [
                {
-                "class": "^Sakura$",
-                "instance": "^sakura$",
+                "class": "^Alacritty$",
+                "instance": "^vimpc$",
                 "transient_for": "^$"
                }
             ],
@@ -62,12 +62,12 @@
        "x": 0,
        "y": 0
     },
-    "name": "i3-save-tree  /home/usr0",
+    "name": "fish  /home/usr0",
     "percent": 0.5,
     "swallows": [
        {
-        "class": "^Sakura$",
-        "instance": "^sakura$",
+        "class": "^Alacritty$",
+        "instance": "^Alacritty$",
         "transient_for": "^$"
        }
     ],

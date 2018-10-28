@@ -1,8 +1,8 @@
 
 if &t_Co > 2 || has("gui_running")
-  " Switch on highlighting the last used search pattern.
   set guioptions-=m
   set guioptions-=T
+  " Switch on highlighting the last used search pattern.
   set hlsearch
 endif
 
@@ -15,27 +15,14 @@ if has("autocmd")
 
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-
   augroup END
 
 else
-
-  set autoindent		" always set autoindenting on
-
-endif " has("autocmd")
+  set autoindent  " always set autoindenting on
+endif
 
 let g:python3_host_prog='/usr/bin/python3'
 
-" Add optional packages.
-"
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatible.
-" The ! means the package won't be loaded right away but when plugins are
-" loaded during initialization.
-"if has('syntax') && has('eval')
-"  packadd! matchit
-"endif
-"
 call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
 Plug 'mbbill/fencview'
@@ -44,10 +31,6 @@ call plug#end()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
-
-set termguicolors
-syntax enable
-colorscheme cc
 
 let g:fencview_autodetect=1
 let g:fencview_checklines=20
@@ -61,6 +44,9 @@ set shiftwidth=2
 set expandtab
 set number
 set nobackup
+
+set termguicolors
+colorscheme cc
 
 let mapleader=" "
 
@@ -107,3 +93,15 @@ nnoremap <C-n> $
 vnoremap n l
 vnoremap N e
 vnoremap <C-n> $
+
+"the status line
+set statusline =%#StatusLine#
+set statusline+=%f
+set statusline+=%R:
+set statusline+=\ %L
+set statusline+=\ lines
+set statusline+=%=
+set statusline+=\<%B
+set statusline+=\>\ %5l,
+set statusline+=\ %c
+set statusline+=\ \ [nvim]%*

@@ -593,34 +593,35 @@ if version >= 508 || !exists("did_racket_syntax_inits")
     command -nargs=+ HiLink hi def link <args>
   endif
 
-  HiLink racketSyntax             Keyword
-  HiLink racketFunc               Function
+  HiLink racketSyntax               Keyword
+  HiLink racketFunc                 Function
 
-  HiLink racketString             String
-  HiLink racketChar               Character
-  HiLink racketBoolean            Boolean
+  HiLink racketString               String
+  HiLink racketChar                 Character
+  HiLink racketBoolean              Boolean
 
-  HiLink racketNumber             Number
-  HiLink racketNumberError        Error
+  HiLink racketNumber               Number
+  HiLink racketNumberError          Error
   HiLink racketContainedNumberError Error
 
-  HiLink racketQuoted             Structure
-  HiLink racketQuotedStruc        Structure
-  HiLink racketSymbol             Structure
+  HiLink racketQuoted               Structure
+  HiLink racketQuotedStruc          Structure
+  HiLink racketSymbol               Structure
 
-  HiLink racketDelimiter          Delimiter
-  HiLink racketParen              SpecialChar
-  HiLink racketBracket            Operator
-  HiLink racketConstant           Constant
+  HiLink racketDelimiter            Delimiter
+  HiLink racketParen                SpecialChar
+  HiLink racketBracket              Operator
 
-  HiLink racketComment            Comment
-  HiLink racketMultilineComment   Comment
-  HiLink racketTodo               Todo
-  HiLink racketNote               SpecialComment
-  HiLink racketError              Error
+  HiLink racketConstant             Constant
 
-  HiLink racketExtSyntax          Type
-  HiLink racketExtFunc            PreProc
+  HiLink racketComment              Comment
+  HiLink racketMultilineComment     Comment
+  HiLink racketTodo                 Todo
+  HiLink racketNote                 SpecialComment
+  HiLink racketError                Error
+
+  HiLink racketExtSyntax            Type
+  HiLink racketExtFunc              PreProc
   delcommand HiLink
 endif
 

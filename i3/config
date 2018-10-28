@@ -15,8 +15,8 @@
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 10 
-font pango:WenQuanYi Micro Hei Mono 10
+font pango:Monaco 10
+#font pango:WenQuanYi Micro Hei Mono 10
 
 #
 #General variants
@@ -64,9 +64,9 @@ exec ibus-daemon
 exec mpd
 exec mpc repeat
 exec i3-msg "workspace 1:sys; append_layout ~/.i3/layout1.json"
-exec (sakura &)
-exec (sakura &)
-exec (sakura &)
+exec alacritty
+exec alacritty
+exec alacritty --class vimpc -e vimpc
 exec amixer set -M Headphone 50%
 exec amixer set Speaker 0
 exec amixer set -M PCM 40%

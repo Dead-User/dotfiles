@@ -1,4 +1,4 @@
-set fish_greeting '#Fish'
+set fish_greeting ''
 
 function fish_user_key_bindings
   bind t 'backward-char'
