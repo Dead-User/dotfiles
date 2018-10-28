@@ -37,10 +37,9 @@ let g:python3_host_prog='/usr/bin/python3'
 "endif
 "
 call plug#begin('~/.config/nvim/plugged')
-Plug 'wlangstroth/vim-racket'
+Plug '~/.config/nvim/plugged/vim-racket'
 Plug 'mbbill/fencview'
 Plug '~/.config/nvim/plugged/vim-ibus'
-Plug '~/.config/nvim/plugged/custom-color'
 call plug#end()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
