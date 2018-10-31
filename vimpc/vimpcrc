@@ -1,0 +1,4 @@
+map n <Right>
+map t <Left>
+map r <Up>
+map h <Down>

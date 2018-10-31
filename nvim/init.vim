@@ -25,8 +25,8 @@ let g:python3_host_prog='/usr/bin/python3'
 
 call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
+Plug '~/.config/nvim/plugged/vim-fcitx'
 Plug 'mbbill/fencview'
-Plug '~/.config/nvim/plugged/vim-ibus'
 call plug#end()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
@@ -40,7 +40,6 @@ filetype indent on
 filetype plugin on
 
 set shiftwidth=2
-
 set expandtab
 set number
 set nobackup
@@ -95,13 +94,12 @@ vnoremap N e
 vnoremap <C-n> $
 
 "the status line
-set statusline =%#StatusLine#
-set statusline+=%f
-set statusline+=%R:
-set statusline+=\ %L
+set statusline =%#StatusLine# "color
+set statusline+=%f            "file name
+set statusline+=%r:           "read-only flag
+set statusline+=\ %L          "line count
 set statusline+=\ lines
-set statusline+=%=
-set statusline+=\<%B
-set statusline+=\>\ %5l,
-set statusline+=\ %c
+set statusline+=%=            "end of left section
+set statusline+=<%B>          "hex code of cursor char
+set statusline+=\ %5l,\ %c    "current line and column
 set statusline+=\ \ [nvim]%*
