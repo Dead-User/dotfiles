@@ -58,8 +58,8 @@ gaps outer 0
 #Auto runs
 #
 
-#exec feh --bg-fill ~/Images/IA-BG.jpg
 #exec xcompmgr -s -n &
+exec mpd --no-daemon
 exec fcitx
 exec i3-msg "workspace 1:sys; append_layout ~/.i3/layout1.json"
 exec alacritty
