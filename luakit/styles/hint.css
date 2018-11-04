@@ -1,0 +1,31 @@
+@-moz-document regexp("^.*$") {
+  #luakit_select_overlay {
+  }
+
+  #luakit_select_overlay .hint_overlay {
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: 2px solid #00E0FF !important;
+    opacity: 0.4 !important;
+  }
+
+  #luakit_select_overlay .hint_label {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    color: #FFA0FF !important;
+    border: none !important;
+    font-family: monaco !important;
+    font-size: 15px !important;
+    opacity: 0.8 !important;
+  }
+
+  #luakit_select_overlay .hint_overlay_body {
+    background-color: #FF0000 !important;
+    border: 2px solid #FF00FF !important;
+    opacity: 1 !important;
+  }
+
+  #luakit_select_overlay .hint_selected {
+    background-color: #F0A000 !important;
+    border: 1px solid #FFFFFF !important;
+    opacity: 0.5 !important;
+}
+
