@@ -2,6 +2,9 @@
 map('t', 'E');
 map('n', 'R');
 
+map('R', 'e');
+map('H', 'd');
+
 map('d', 'x');
 map('D', 'X');
 map('x', 'r');
@@ -10,8 +13,6 @@ map('T', 'h');
 map('N', 'l');
 map('r', 'k');
 map('h', 'j');
-map('R', 'e');
-map('H', 'd');
 
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
