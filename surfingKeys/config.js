@@ -1,9 +1,15 @@
 
+unmap('t');
 map('t', 'E');
+unmap('n');
 map('n', 'R');
+unmap('r');
 map('r', 'j');
+unmap('h');
 map('h', 'k');
+unmap('T');
 map('T', 'h');
+unmap('N');
 map('N', 'l');
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
@@ -11,10 +17,10 @@ unmap('<Ctrl-i>');
 // set theme
 settings.theme = `
 .sk_theme {
-    font-family: Input Sans Condensed, Charcoal, sans-serif;
+    font-family: Monaco, sans-serif;
     font-size: 10pt;
-    background: #24272e;
-    color: #abb2bf;
+    background: #202020;
+    color: #EFDAE4;
 }
 .sk_theme tbody {
     color: #fff;
