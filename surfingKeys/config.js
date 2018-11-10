@@ -1,26 +1,24 @@
 
-unmap('t');
 map('t', 'E');
-unmap('n');
 map('n', 'R');
-unmap('T');
-map('T', 'h');
-unmap('N');
-map('N', 'l');
-unmap('r');
-map('r', 'k');
-unmap('h');
-//map('h', 'j');
 
-mapkey('h', 'scroll down', function () {
-  Mode.scroll("down");
-})
+map('d', 'x');
+map('D', 'X');
+map('x', 'r');
+
+map('T', 'h');
+map('N', 'l');
+map('r', 'k');
+map('h', 'j');
+map('R', 'e');
+map('H', 'd');
 
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
 
 Hints.characters = 'aoeithnsdurl';
-Hints.scrollKeys = "";
+Hints.scrollKeys = '';
+
 // set theme
 settings.theme = `
 .sk_theme {
