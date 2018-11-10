@@ -19,8 +19,8 @@ mapkey('h', 'scroll down', function () {
 // an example to remove mapkey `Ctrl-i`
 unmap('<Ctrl-i>');
 
-Hints.characters('aoeithnsdurl');
-Hints.scrollKeys("");
+Hints.characters = 'aoeithnsdurl';
+Hints.scrollKeys = "";
 // set theme
 settings.theme = `
 .sk_theme {
