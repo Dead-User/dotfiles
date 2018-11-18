@@ -15,19 +15,14 @@
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Monaco 10
+font pango:Monaco 9
 #font pango:WenQuanYi Micro Hei Mono 10
 
-#
-#General variants
-#
-
+#global variants
 set $Mod Mod4
 
-#
-#General configuration settings
-#
 
+#general settings
 default_orientation horizontal
 default_border pixel 3
 focus_wrapping yes
@@ -35,39 +30,41 @@ focus_follows_mouse no
 workspace_auto_back_and_forth no
 hide_edge_borders both
 
-#color-class            border  backgr. text    indicator child-border
-client.focused          #202020 #FFDAEF #000000 #2E9EF4   #FF80FF
-client.unfocused        #404040 #404040 #EBDAE4 #2E9EF4   #222222
-client.focused_inactive #202020 #FFDAEF #000000 #2E9EF4   #222222
+#color setting
+#color-classes          border  backgr. text    indicator child-border
+client.focused          #202020 #EFDFEF #000000 #2E9EF4   #EFDFEF
+client.unfocused        #404040 #404040 #EFDFEF #2E9EF4   #222222
+client.focused_inactive #202020 #EFDFEF #000000 #2E9EF4   #222222
 
+#window specific config
 for_window [class="feh"] floating enable
 for_window [class="feh"] border none
 
-for_window [class="Luakit"] border none
-assign [class="Luakit"] 2:web
+for_window [class="Waterfox"] border none
+assign [class="Waterfox"] 2:web
 
-#for_window [class="VirtualBox"] floating enable
 assign [class="VirtualBox"] 4:vm
 
-
-
-
-smart_gaps on
+#gaps relative
+#smart_gaps on
 smart_borders on
-gaps inner 3
+gaps inner 10
 gaps outer 0
 
-#
-#Auto runs
-#
-
-#exec xcompmgr -s -n &
+#auto runs
+exec xcompmgr -s -n
+exec fish $SCRIPTS_DIR/random_bg.fish
 exec mpd
 exec fcitx
+
+#append the layout and fill it with windows
 exec i3-msg "workspace 1:sys; append_layout ~/.i3/layout1.json"
 exec alacritty
 exec alacritty
 exec alacritty --class vimpc -e vimpc
+exec alacritty
+
+#set the default volume
 exec amixer set -M Headphone 50%
 exec amixer set Speaker 0
 exec amixer set -M PCM 40%
@@ -132,6 +129,12 @@ bindsym $Mod+Shift+Down move down
 bindsym $Mod+Shift+Up move up
 bindsym $Mod+Shift+Right move right
 
+# resize window
+bindsym $Mod+Control+$left  resize shrink width 10 px or 10 ppt
+bindsym $Mod+Control+$down  resize grow height 10 px or 10 ppt
+bindsym $Mod+Control+$up    resize shrink height 10 px or 10 ppt
+bindsym $Mod+Control+$right resize grow width 10 px or 10 ppt
+
 # split in horizontal orientation
 bindsym $Mod+i split h
 
@@ -180,18 +183,30 @@ set $ws10 "10:irc"
 
 
 # switch to workspace
-bindsym $Mod+1 workspace $ws1
-bindsym $Mod+2 workspace $ws2
-bindsym $Mod+3 workspace $ws3
-bindsym $Mod+4 workspace $ws4
-bindsym $Mod+5 workspace $ws5
-bindsym $Mod+6 workspace $ws6
-bindsym $Mod+7 workspace $ws7
-bindsym $Mod+8 workspace $ws8
-bindsym $Mod+9 workspace $ws9
-bindsym $Mod+0 workspace $ws10
-bindsym $Mod+a workspace prev
-bindsym $Mod+o workspace next
+bindsym $Mod+1 workspace $ws1;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+2 workspace $ws2;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+3 workspace $ws3;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+4 workspace $ws4;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+5 workspace $ws5;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+6 workspace $ws6;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+7 workspace $ws7;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+8 workspace $ws8;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+9 workspace $ws9;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+0 workspace $ws10;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+a workspace prev;\
+exec fish /home/usr0/Scripts/random_bg.fish
+bindsym $Mod+o workspace next;\
+exec fish /home/usr0/Scripts/random_bg.fish
 
 # move focused container to workspace
 bindsym $Mod+Shift+1 move container to workspace $ws1
@@ -258,38 +273,22 @@ mode "menu" {
 
 bindsym $Mod+m mode "menu"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+#i3 bar
 bar {
         status_command py3status
 
-        mode hide
-        hidden_state hide
-        modifier $Mod
-
         position bottom
 
-        separator_symbol "]["
+        separator_symbol "|"
 
         strip_workspace_numbers yes
 
         i3bar_command i3bar -t
 
         colors {
-            background #202020a0
-            focused_workspace #ff80ff #202020a0 #ff80ff
-            binding_mode #ff80ff #202020a0 #ff80ff
-            separator #f0f0f0
+            background #202020f0
+            focused_workspace #efdfef #202020a0 #efdfef
+            binding_mode #efdfef #202020a0 #efdfef
+            separator #efdfef
         }
 }
-
-#######################################################################
-# automatically start i3-config-wizard to offer the user to create a
-# keysym-based config which used their favorite modifier (alt or windows)
-#
-# i3-config-wizard will not launch if there already is a config file
-# in ~/.i3/config.
-#
-# Please remove the following exec line:
-#######################################################################
-exec i3-config-wizard
