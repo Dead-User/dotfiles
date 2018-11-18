@@ -1,2 +1,3 @@
-^.*
-
+fcitx/clipboard
+fcitx/data
+fcitx/dbus
