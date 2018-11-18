@@ -1,5 +1,5 @@
-fcitx/clipboard
-fcitx/clipboard/*
-fcitx/data
-fcitx/dbus
-fcitx/pinyin
+/fcitx/clipboard
+/fcitx/clipboard/*
+/fcitx/data
+/fcitx/dbus
+/fcitx/pinyin
