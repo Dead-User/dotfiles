@@ -1,4 +1,4 @@
-map n <Right>
-map t <Left>
+map n gt
+map t gT
 map r <Up>
 map h <Down>
