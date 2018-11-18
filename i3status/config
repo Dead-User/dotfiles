@@ -32,22 +32,22 @@ mpd_status {
         hide_when_stopped = "True"
         hide_on_error = "True"
         color_pause = '#f0f020'
-        color_play = '#ff80ff'
+        color_play = '#efdfef'
 }
 
 
 backlight {
-        format = "SRC:{level}"
+        format = "Bri:{level}"
         cache_timeout = 1
 }
 
 
 volume_status {
-        format = "\{~{percentage}~\}"
+        format = "Vol:{percentage}"
 	channel = "Master"
         thresholds = [
             (0, "degarded"),
-            (20, '#ff80ff'),
+            (20, '#efdfef'),
             (80, "bad"),
         ]
         color_muted = '#3f3f3f'
@@ -61,7 +61,7 @@ group battery {
         format = "{output}"
 
         battery_level {
-            format = "BATTERY:{percent}\%\[{ascii_bar}\]"
+            format = "{percent}\%-{ascii_bar}"
             cache_timeout = 60
             threshold_full = 60
             threshold_bad = 20
@@ -71,7 +71,7 @@ group battery {
 
 
         battery_level {
-            format = "BATTERY:{percent}\%-{time_remaining} left"
+            format = "{percent}\% - {time_remaining} left"
             cache_timeout = 60
             threshold_full = 60
             threshold_bad = 20
@@ -104,7 +104,7 @@ sysdata {
 }
 
 tztime local {
-        color = '#ff80ff'
+        color = '#efdfef'
         format = "%Y-%m-%d %H:%M:%S"
 }
 
