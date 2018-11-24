@@ -4,3 +4,4 @@
 /fcitx/dbus
 /fcitx/pinyin
 /fcitx/log
+*/.git/*
