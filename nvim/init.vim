@@ -27,6 +27,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
 Plug '~/.config/nvim/plugged/vim-fcitx'
 Plug 'mbbill/fencview'
+Plug 'lambdalisue/suda.vim'
 call plug#end()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
@@ -49,7 +50,7 @@ colorscheme cc
 
 let mapleader=" "
 
-cnoremap w!! w !sudo tee %
+cnoremap w!! w suda://%<CR>
 
 nnoremap <leader>s :%s/
 nnoremap <leader>dm :delmarks

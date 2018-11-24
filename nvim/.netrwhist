@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/usr/share/nvim/runtime/autoload/health'
 let g:netrw_dirhist_2='/home/usr0/dotfiles/vim'
 let g:netrw_dirhist_3='/home/usr0/.config/fcitx/conf'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/home/usr0/dotfiles/i3'
 let g:netrw_dirhist_5='/home/usr0/dotfiles/fcitx/conf'
 let g:netrw_dirhist_6='/home/usr0/.mozilla/firefox/0989t9et.default/extensions'
 let g:netrw_dirhist_7='/home/usr0/.local/share/luakit/styles'
+let g:netrw_dirhist_8='/home/usr0/.vim'

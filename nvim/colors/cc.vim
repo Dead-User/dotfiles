@@ -7,7 +7,7 @@ endif
 
 let colors_name = "cc"
 
-hi Normal guifg=#EBE4DA guibg=NONE
+hi Normal guifg=#EFDFEF guibg=NONE
 
 "line numbers
 hi LineNr guifg=#FFFFFF
@@ -22,7 +22,7 @@ hi Number guifg=#00E0FF
 hi Character guifg=#F0F030
 hi String guifg=#F0F030
 hi Constant guifg=#A0F030
-hi Identifier guifg=#EBE4DA
+hi Identifier guifg=#EFDFEF
 
 "special characters
 hi Delimiter guifg=#FF4000 gui=bold
