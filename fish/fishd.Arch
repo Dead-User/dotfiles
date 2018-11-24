@@ -2,6 +2,7 @@
 # Do NOT edit it directly, your changes will be overwritten.
 SET_EXPORT IMGS_DIR:/home/usr0/Images/
 SET_EXPORT SCRIPTS_DIR:/home/usr0/Scripts/
+SET_EXPORT __fish_bin_dir:/usr/bin\x1e/home/usr0/Scripts/
 SET __fish_classic_git_prompt_initialized:\x1d
 SET __fish_init_2_39_8:\x1d
 SET __fish_init_2_3_0:\x1d
