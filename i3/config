@@ -40,8 +40,8 @@ client.focused_inactive #202020 #EFDFEF #000000 #2E9EF4   #222222
 for_window [class="feh"] floating enable
 for_window [class="feh"] border none
 
-for_window [class="Waterfox"] border none
 assign [class="Waterfox"] 2:web
+for_window [class="Waterfox"] border none
 
 assign [class="VirtualBox"] 4:vm
 
@@ -52,17 +52,11 @@ gaps inner 10
 gaps outer 0
 
 #auto runs
-exec xcompmgr -s -n
-exec fish $SCRIPTS_DIR/random_bg.fish
+exec compton -bc
+exec $SCRIPTS_DIR/random_bg.fish
 exec mpd
 exec fcitx
-
-#append the layout and fill it with windows
-exec i3-msg "workspace 1:sys; append_layout ~/.i3/layout1.json"
-exec alacritty
-exec alacritty
-exec alacritty --class vimpc -e vimpc
-exec alacritty
+exec $SCRIPTS_DIR/launch_bar.fish
 
 #set the default volume
 exec amixer set -M Headphone 50%
@@ -70,6 +64,12 @@ exec amixer set Speaker 0
 exec amixer set -M PCM 40%
 exec amixer set -M Master 30%
 
+
+#append the layout and fill it with windows
+exec i3-msg "workspace 1:sys; append_layout ~/.i3/layout1.json"
+exec alacritty --class htop  -e htop
+exec alacritty --class vimpc -e vimpc
+exec alacritty
 
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -184,29 +184,28 @@ set $ws10 "10:irc"
 
 # switch to workspace
 bindsym $Mod+1 workspace $ws1;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+2 workspace $ws2;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+3 workspace $ws3;\
-exec fish /home/usr0/Scripts/random_bg.fish
-bindsym $Mod+4 workspace $ws4;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
+bindsym $Mod+4 workspace $ws4
 bindsym $Mod+5 workspace $ws5;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+6 workspace $ws6;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+7 workspace $ws7;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+8 workspace $ws8;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+9 workspace $ws9;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+0 workspace $ws10;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+a workspace prev;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 bindsym $Mod+o workspace next;\
-exec fish /home/usr0/Scripts/random_bg.fish
+exec random_bg.fish
 
 # move focused container to workspace
 bindsym $Mod+Shift+1 move container to workspace $ws1
@@ -274,21 +273,21 @@ mode "menu" {
 bindsym $Mod+m mode "menu"
 
 #i3 bar
-bar {
-        status_command py3status
-
-        position bottom
-
-        separator_symbol "|"
-
-        strip_workspace_numbers yes
-
-        i3bar_command i3bar -t
-
-        colors {
-            background #202020f0
-            focused_workspace #efdfef #202020a0 #efdfef
-            binding_mode #efdfef #202020a0 #efdfef
-            separator #efdfef
-        }
-}
+#bar {
+#        status_command py3status
+#
+#        position bottom
+#
+#        separator_symbol "|"
+#
+#        strip_workspace_numbers yes
+#
+#        i3bar_command i3bar -t
+#
+#        colors {
+#            background #202020f0
+#            focused_workspace #efdfef #202020a0 #efdfef
+#            binding_mode #efdfef #202020a0 #efdfef
+#            separator #efdfef
+#        }
+#}

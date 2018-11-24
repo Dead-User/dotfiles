@@ -2,20 +2,42 @@
 {
     "border": "pixel",
     "floating": "auto_off",
-    "layout": "splith",
+    "layout": "splitv",
     "gaps": {
         "inner": 10,
         "outer": 0
     },
-    "percent": 0.5,
+    "percent": 1.0,
     "type": "con",
     "nodes": [
         {
-            // splitv split container with 2 children
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+                "height": 410,
+                "width": 642,
+                "x": 0,
+                "y": 0
+            },
+            "name": "fish  /home/usr0",
+            "percent": 0.6,
+            "swallows": [
+                {
+                    "class": "^Alacritty$",
+                    "instance": "^Alacritty$",
+                    "transient_for": "^$"
+                }
+            ],
+            "type": "con"
+        },
+
+        {
+            // splith split container with 2 children
             "border": "pixel",
             "floating": "auto_off",
-            "layout": "splitv",
-            "percent": 0.5,
+            "layout": "splith",
+            "percent": 0.4,
             "type": "con",
             "nodes": [
                 {
@@ -28,12 +50,12 @@
                         "x": 0,
                         "y": 0
                     },
-                    "name": "fish  /home/usr0",
+                    "name": "htop",
                     "percent": 0.5,
                     "swallows": [
                         {
                             "class": "^Alacritty$",
-                            "instance": "^Alacritty$",
+                            "instance": "^htop$",
                             "transient_for": "^$"
                         }
                     ],
@@ -49,7 +71,7 @@
                         "x": 0,
                         "y": 0
                     },
-                    "name": "vimpc  /home/usr0",
+                    "name": "vimpc",
                     "percent": 0.5,
                     "swallows": [
                         {
@@ -61,28 +83,6 @@
                     "type": "con"
                 }
             ]
-        },
-
-        {
-            "border": "pixel",
-            "current_border_width": 3,
-            "floating": "auto_off",
-            "geometry": {
-                "height": 410,
-                "width": 642,
-                "x": 0,
-                "y": 0
-            },
-            "name": "fish  /home/usr0",
-            "percent": 0.5,
-            "swallows": [
-                {
-                    "class": "^Alacritty$",
-                    "instance": "^Alacritty$",
-                    "transient_for": "^$"
-                }
-            ],
-            "type": "con"
         }
     ]
 }
