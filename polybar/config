@@ -27,7 +27,8 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 green = #8fff00
-blue = #00ffa0
+blue = #00a0ff
+ice = #00e0ff
 orange = #ffa000
 
 [bar/bar0]
@@ -56,13 +57,13 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Monaco:pixelsize=12;1
-font-1 = "Font\ Awesome\ 5\ Free:size=12:style=solid"
-font-2 = "wenquan:pixelsize=12"
+font-0 = Monaco:pixelsize=10;1
+font-1 = "Font\ Awesome\ 5\ Free:size=10:style=solid"
+font-2 = "wenquan:pixelsize=10"
 
 modules-left = xbacklight alsa mpd
 modules-center = i3
-modules-right = memory cpu wlan battery temperature date 
+modules-right = wlan battery memory cpu temperature date 
 
 tray-position =
 tray-padding = 2
@@ -99,11 +100,11 @@ strip-wsnumbers = true
 label-mode = " %mode% "
 label-mode-padding = 0
 label-mode-foreground = ${colors.foreground}
-label-mode-background = ${colors.background-alt}
+label-mode-background = ${colors.background}
 label-mode-underline = ${colors.green}
 
 label-focused = " %name% "
-label-focused-background = ${colors.background-alt}
+label-focused-background = ${colors.background}
 label-focused-underline = ${colors.primary}
 label-focused-padding = 0
 
@@ -186,20 +187,14 @@ interval = 3.0
 
 format-connected = <label-connected>
 format-connected-underline = #9f78e1
-label-connected = " %essid%"
+label-connected = " %downspeed%-%essid%"
+label-connected-maxlen = 
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
@@ -221,7 +216,7 @@ label = %date% %time%
 type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
-label-volume = ""
+label-volume = 
 label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = " "
@@ -260,15 +255,10 @@ format-discharging-underline = ${colors.blue}
 format-full = <label-full>
 format-full-underline = ${self.format-discharging-underline}
 
-; battery is [almost] empty
 ramp-capacity-0 = 
-; quater
 ramp-capacity-1 = 
-; half
 ramp-capacity-2 = 
-; three quater
 ramp-capacity-3 = 
-; full
 ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
@@ -285,7 +275,7 @@ animation-discharging-framerate = 750
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
-warn-temperature = 60
+warn-temperature = 75
 
 format = <ramp> <label>
 format-underline = #f50a4d
@@ -299,7 +289,7 @@ label-warn-foreground = ${colors.secondary}
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-forground = ${colors.foreground}
 
 [settings]
 screenchange-reload = true
