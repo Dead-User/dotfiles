@@ -28,6 +28,7 @@ Plug '~/.config/nvim/plugged/vim-racket'
 Plug '~/.config/nvim/plugged/vim-fcitx'
 Plug 'mbbill/fencview'
 Plug 'lambdalisue/suda.vim'
+Plug 'idris-hackers/idris-vim'
 call plug#end()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
@@ -64,6 +65,14 @@ function! Eval()
 endfunction
 cnoremap repl call Eval()
 
+function! Make()
+  if !exists("s:make_cmd")
+    let s:make_cmd =  "./make"
+  endif
+  execute "!" . s:make_cmd
+endfunction
+cnoremap make call Make()
+
 
 "reverse ` and ' since the former is more useful
 nnoremap ` '
@@ -93,6 +102,9 @@ nnoremap <C-n> $
 vnoremap n l
 vnoremap N e
 vnoremap <C-n> $
+
+nnoremap j n
+nnoremap k N
 
 "the status line
 set statusline =%#StatusLine# "color
