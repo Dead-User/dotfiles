@@ -53,10 +53,10 @@ gaps outer 0
 
 #auto runs
 exec compton -bc
-exec $SCRIPTS_DIR/random_bg.fish
+exec random_bg.fish
 exec mpd
 exec fcitx
-exec $SCRIPTS_DIR/launch_bar.fish
+exec launch_bar.fish
 
 #set the default volume
 exec amixer set -M Headphone 50%
@@ -68,7 +68,7 @@ exec amixer set -M Master 30%
 #append the layout and fill it with windows
 exec i3-msg "workspace 1:sys; append_layout ~/.i3/layout1.json"
 exec alacritty --class htop  -e htop
-exec alacritty --class vimpc -e vimpc
+exec alacritty --class vimpc -e vimpc_init.fish
 exec alacritty
 
 
@@ -183,29 +183,18 @@ set $ws10 "10:irc"
 
 
 # switch to workspace
-bindsym $Mod+1 workspace $ws1;\
-exec random_bg.fish
-bindsym $Mod+2 workspace $ws2;\
-exec random_bg.fish
-bindsym $Mod+3 workspace $ws3;\
-exec random_bg.fish
-bindsym $Mod+4 workspace $ws4
-bindsym $Mod+5 workspace $ws5;\
-exec random_bg.fish
-bindsym $Mod+6 workspace $ws6;\
-exec random_bg.fish
-bindsym $Mod+7 workspace $ws7;\
-exec random_bg.fish
-bindsym $Mod+8 workspace $ws8;\
-exec random_bg.fish
-bindsym $Mod+9 workspace $ws9;\
-exec random_bg.fish
-bindsym $Mod+0 workspace $ws10;\
-exec random_bg.fish
-bindsym $Mod+a workspace prev;\
-exec random_bg.fish
-bindsym $Mod+o workspace next;\
-exec random_bg.fish
+bindsym $Mod+1 workspace $ws1; exec random_bg.fish
+bindsym $Mod+2 workspace $ws2; exec random_bg.fish
+bindsym $Mod+3 workspace $ws3; exec random_bg.fish
+bindsym $Mod+4 workspace $ws4; exec random_bg.fish
+bindsym $Mod+5 workspace $ws5; exec random_bg.fish
+bindsym $Mod+6 workspace $ws6; exec random_bg.fish
+bindsym $Mod+7 workspace $ws7; exec random_bg.fish
+bindsym $Mod+8 workspace $ws8; exec random_bg.fish
+bindsym $Mod+9 workspace $ws9; exec random_bg.fish
+bindsym $Mod+0 workspace $ws10; exec random_bg.fish
+bindsym $Mod+a workspace prev; exec random_bg.fish
+bindsym $Mod+o workspace next; exec random_bg.fish
 
 # move focused container to workspace
 bindsym $Mod+Shift+1 move container to workspace $ws1
@@ -226,7 +215,7 @@ bindsym $Mod+v reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $Mod+x restart
 # exit i3 (logs you out of your X session)
-bindsym $Mod+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $Mod+z exec alacritty -e i3exit.fish
 
 
 # resize window (you can also use the mouse for that)
