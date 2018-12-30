@@ -4,4 +4,5 @@
 /fcitx/dbus
 /fcitx/pinyin
 /fcitx/log
+/nvim/plugged
 */.git/*

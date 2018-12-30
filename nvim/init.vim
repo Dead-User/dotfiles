@@ -26,6 +26,7 @@ let g:python3_host_prog='/usr/bin/python3'
 call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
 Plug '~/.config/nvim/plugged/vim-fcitx'
+Plug 'autozimu/LanguageClient-neovim'
 Plug 'mbbill/fencview'
 Plug 'lambdalisue/suda.vim'
 Plug 'idris-hackers/idris-vim'
