@@ -23,3 +23,6 @@ function fish_user_key_bindings
 end
 
 alias nv nvim
+
+# opam configuration
+source /home/usr0/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true

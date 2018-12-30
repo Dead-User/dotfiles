@@ -9,7 +9,7 @@ SET __fish_init_2_39_8:\x1d
 SET __fish_init_2_3_0:\x1d
 SET fish_color_autosuggestion:870087
 SET fish_color_cancel:\x2dr
-SET fish_color_command:efdfef
+SET fish_color_command:ffffff
 SET fish_color_comment:808080
 SET fish_color_cwd:green
 SET fish_color_cwd_root:red
@@ -21,7 +21,7 @@ SET fish_color_host:normal
 SET fish_color_match:\x2d\x2dbackground\x3dbrblue
 SET fish_color_normal:normal
 SET fish_color_operator:bryellow
-SET fish_color_param:ff87ff
+SET fish_color_param:efdfef
 SET fish_color_quote:00d700
 SET fish_color_redirection:BF7130
 SET fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
