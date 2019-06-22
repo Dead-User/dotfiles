@@ -1,3 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/home/usr0/Projects/langs/yash/bootstrap/tests'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/usr0/Projects/langs/par'
+let g:netrw_dirhist_2='/home/usr0/Projects/langs/par/expr'
+let g:netrw_dirhist_3='/home/usr0/Projects/langs/par/parser'
+let g:netrw_dirhist_4='/home/usr0/Projects/langs/par/ast'

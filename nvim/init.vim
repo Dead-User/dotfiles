@@ -26,17 +26,45 @@ let g:python3_host_prog='/usr/bin/python3'
 call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
 Plug '~/.config/nvim/plugged/vim-fcitx'
-Plug 'autozimu/LanguageClient-neovim'
+Plug '~/.config/nvim/plugged/merlin'
+"Plug 'autozimu/LanguageClient-neovim', {
+"      \'branch': 'next',
+"      \'do': 'bash install.sh',
+"      \}
 Plug 'mbbill/fencview'
 Plug 'lambdalisue/suda.vim'
 Plug 'idris-hackers/idris-vim'
+Plug 'Yggdroot/indentLine'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
+
+"language servers
+"let g:LanguageClient_serverCommands = {
+"      \'ocaml':['/usr/bin/ocaml-language-server', '--node-ipc'],
+"      \}
+let loaded_matchparen = 1
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
+let no_ocaml_maps = 1 "we have merlin!
 
+"fencview
 let g:fencview_autodetect=1
 let g:fencview_checklines=20
+
+"indent line
+let g:indentLine_conceallevel = 1
+let g:indentLine_setColors = 0
+let g:indentLine_char = '|'
+let g:indentLine_enabled = 0
+
+"syntastic
+let g:syntastic_ocaml_checkers = ['merlin']
+let g:syntastic_enable_racket_racket_checker = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 filetype on
 filetype indent on
@@ -51,33 +79,53 @@ set termguicolors
 colorscheme cc
 
 let mapleader=" "
+let maplocalleader=" "
 
 cnoremap w!! w suda://%<CR>
 
 nnoremap <leader>s :%s/
 nnoremap <leader>dm :delmarks
+"nnoremap <leader>t :call LanguageClient_textDocument_hover()<CR>
+
+inoremap <C-o> <C-x><C-o>
 
 "repl setup
 function! Eval()
   if !exists("s:repl_cmd")
     let s:repl_cmd = &l:filetype . " "
+    if &l:filetype == 'haskell'
+      let s:repl_cmd = 'ghci '
+    endif
   endif
-  execute "!" . s:repl_cmd . expand("%")
+  "[popup] a tiny script used to interact with the window manager
+  call system('new_window --popup ' . s:repl_cmd . expand('%:p'))
 endfunction
 cnoremap repl call Eval()
 
+"compile setup
 function! Make()
   if !exists("s:make_cmd")
-    let s:make_cmd =  "./make"
+    let s:make_cmd = ' ./make'
   endif
-  execute "!" . s:make_cmd
+  "[popup] a tiny script used to interact with the window manager
+  call system('new_window --popup --directory ' . expand('%:p:h') . s:make_cmd)
 endfunction
 cnoremap make call Make()
+
+"popup terminal, better than vim's own window system.
+"after all, why not use a real window manager?
+function! Term()
+  call system('new_window --popup --no-cmd --directory ' . expand('%:p:h'))
+endfunction
+cnoremap term call Term()
 
 
 "reverse ` and ' since the former is more useful
 nnoremap ` '
 nnoremap ' `
+
+"cancelling highlight
+noremap <esc> :nohl<CR>
 
 "all about arrow keys
 nnoremap t h
@@ -114,6 +162,14 @@ set statusline+=%r:           "read-only flag
 set statusline+=\ %L          "line count
 set statusline+=\ lines
 set statusline+=%=            "end of left section
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%=            "end of middle section
+
 set statusline+=<%B>          "hex code of cursor char
 set statusline+=\ %5l,\ %c    "current line and column
 set statusline+=\ \ [nvim]%*
+
+

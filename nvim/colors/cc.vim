@@ -13,7 +13,7 @@ hi Normal guifg=#EFDFEF guibg=NONE
 hi LineNr guifg=#FFFFFF
 
 "comment
-hi Comment guifg=#A000A0
+hi Comment guifg=#606060
 hi link SpecialComment Comment
 
 "data types
@@ -21,31 +21,38 @@ hi Boolean guifg=#00E0FF
 hi Number guifg=#00E0FF
 hi Character guifg=#F0F030
 hi String guifg=#F0F030
-hi Constant guifg=#A0F030
+hi Constant guifg=#00E0FF
 hi Identifier guifg=#EFDFEF
 
 "special characters
 hi Delimiter guifg=#FF4000 gui=bold
 hi SpecialChar guifg=#00A0FF gui=bold
-hi Operator guifg=#A0FF00 gui=bold
+hi Operator guifg=#FF2000 gui=bold
 
 "special labels
 hi Function guifg=#00F000 
 hi PreProc guifg=#00F000
 hi Type guifg=#FF8000
-hi Keyword guifg=#FF2020 gui=bold
+hi Keyword guifg=#FF8000 gui=bold
 hi Statement guifg=#FF2020 gui=bold
 
 hi Structure guifg=#FFA0FF
 
 "mark relative
-hi MatchParen guifg=#202020 guibg=#00FF00 gui=bold
+hi MatchParen guifg=#202020 guibg=#A0A0A0 gui=bold
 
 "error
 hi Error guifg=#E0E0E0 guibg=#C00000
 
 "status line
 hi StatusLine guifg=#EBE4DA guibg=#404040 gui=bold
+
+"indent line
+hi Conceal guifg=#8B847A guibg=NONE
+
+"complete menu
+hi PMenu guifg=#EBE4DA guibg=#404040
+hi Search guifg=#FFFFFF guibg=#808080
 
 set background=dark
 
