@@ -29,6 +29,7 @@ focus_wrapping yes
 focus_follows_mouse no
 workspace_auto_back_and_forth no
 hide_edge_borders both
+#floating_maximum_size 1200 x 700
 
 #color setting
 #color-classes          border  backgr. text    indicator child-border
@@ -40,10 +41,18 @@ client.focused_inactive #202020 #EFDFEF #000000 #2E9EF4   #222222
 for_window [class="feh"] floating enable
 for_window [class="feh"] border none
 
-assign [class="Waterfox"] 2:web
-for_window [class="Waterfox"] border none
+assign [class="Firefox"] 2:web
+for_window [class="Firefox"] border none
 
 assign [class="VirtualBox"] 4:vm
+assign [class="PPSSPPSDL"] 7:psp
+
+for_window [instance="popup"] floating enable
+for_window [instance="popup"]\
+resize set 1200 700
+for_window [instance="popup"]\
+move position center
+                              
 
 #gaps relative
 #smart_gaps on
@@ -174,9 +183,9 @@ set $ws1 "1:sys"
 set $ws2 "2:web"
 set $ws3 "3:vim"
 set $ws4 "4:vm"
-set $ws5 "5:media"
+set $ws5 "5:mda"
 set $ws6 "6:img"
-set $ws7 "7"
+set $ws7 "7:psp"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10:irc"
