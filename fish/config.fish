@@ -1,6 +1,7 @@
 set fish_greeting ''
 set __fish_bin_dir[2] $SCRIPTS_DIR
 set PATH[7] $SCRIPTS_DIR
+set MANPATH[3] '/usr/share/man'
 
 function fish_user_key_bindings
   bind t 'backward-char'
