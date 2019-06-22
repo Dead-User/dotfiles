@@ -66,6 +66,7 @@ execute pathogen#infect()
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
+set rtp+=/home/usr0/.opam/default/share/merlin/vim
 
 syntax enable
 colorscheme CS
