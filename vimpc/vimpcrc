@@ -2,3 +2,6 @@ map n gt
 map t gT
 map r <Up>
 map h <Down>
+
+set songformat %f $E$R [%l]
+set libraryformat %f $E$R [%l]
