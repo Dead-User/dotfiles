@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/usr0/Projects/langs/par'
-let g:netrw_dirhist_2='/home/usr0/Projects/langs/par/expr'
-let g:netrw_dirhist_3='/home/usr0/Projects/langs/par/parser'
-let g:netrw_dirhist_4='/home/usr0/Projects/langs/par/ast'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/usr0/Projects/langs'
+let g:netrw_dirhist_2='/home/usr0'
+let g:netrw_dirhist_3='/home/usr0/Projects/langs/meta'
+let g:netrw_dirhist_4='/home/usr0/Projects/langs/meta/doc'
+let g:netrw_dirhist_5='/var/lib/netctl'

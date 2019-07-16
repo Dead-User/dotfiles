@@ -98,7 +98,7 @@ function! Eval()
     endif
   endif
   "[popup] a tiny script used to interact with the window manager
-  call system('new_window --popup ' . s:repl_cmd . expand('%:p'))
+  call system('new-terminal --popup ' . s:repl_cmd . expand('%:p'))
 endfunction
 cnoremap repl call Eval()
 
@@ -108,14 +108,14 @@ function! Make()
     let s:make_cmd = ' ./make'
   endif
   "[popup] a tiny script used to interact with the window manager
-  call system('new_window --popup --directory ' . expand('%:p:h') . s:make_cmd)
+  call system('new-terminal --popup --directory ' . expand('%:p:h') . s:make_cmd)
 endfunction
 cnoremap make call Make()
 
 "popup terminal, better than vim's own window system.
 "after all, why not use a real window manager?
 function! Term()
-  call system('new_window --popup --no-cmd --directory ' . expand('%:p:h'))
+  call system('new-terminal --popup --no-cmd --directory ' . expand('%:p:h'))
 endfunction
 cnoremap term call Term()
 

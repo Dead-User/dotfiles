@@ -54,6 +54,10 @@ hi Conceal guifg=#8B847A guibg=NONE
 hi PMenu guifg=#EBE4DA guibg=#404040
 hi Search guifg=#FFFFFF guibg=#808080
 
+hi TabLineFill guifg=#404040 guibg=#404040 guibg=None
+hi TabLine guifg=#EBE4DA guibg=#404040
+hi TabLineSel guifg=#EBE4DA guibg=#202020
+
 set background=dark
 
 " vim: sw=2
