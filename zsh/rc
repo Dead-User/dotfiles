@@ -1,0 +1,51 @@
+#!/bin/zsh
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/usr0/.zshrc'
+
+MY_ZSH_DOT_PATH="$HOME/dotfiles/zsh"
+MY_ZSH_PLUG_PATH='/usr/share/zsh/plugins'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+#
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search 
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search 
+
+source "$MY_ZSH_PLUG_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$MY_ZSH_PLUG_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# z.lua
+eval "$(lua $MY_ZSH_PLUG_PATH/z.lua/z.lua --init zsh)"
+alias zb='z -b'
+alias zc='z -c'
+
+# alias
+alias nv=nvim
+alias ls='ls --color=auto'
+
+
+# prompt
+source "$MY_ZSH_DOT_PATH/prompt"
+export PROMPT_PATH_MAX_LEN=10
+
+# colors
+source "$MY_ZSH_DOT_PATH/key-bindings"
+source "$MY_ZSH_DOT_PATH/highlights"
+
+# options
+setopt PROMPT_SUBST
+unsetopt correct_all
+unsetopt correct
+DISABLE_CORRECTION='true'
+
+setopt inc_append_history
+
+fpath=("$MY_ZSH_DOT_PATH/functions" $fpath)
