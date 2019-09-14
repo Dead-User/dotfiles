@@ -5,7 +5,7 @@ function fish_prompt
     and echo (set_color red)"#"
 
     # Main
-    echo -n (set_color bfafbf)'['(set_color efdfef)(prompt_pwd)(set_color bfafbf)']'\
-            (set_color efdfef)'❯'(set_color bfafbf)'❯'(set_color 7f6f7f)'❯ '
+    echo -n (set_color 009ad6)'<'(set_color d3d7d4)(prompt_pwd)
+    set_color normal
+    echo (set_color 009ad6)'> '
 end
-
