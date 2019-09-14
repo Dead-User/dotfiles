@@ -1,7 +1,8 @@
+
 set fish_greeting ''
-set __fish_bin_dir[2] $SCRIPTS_DIR
-set PATH[7] $SCRIPTS_DIR
-set MANPATH[3] '/usr/share/man'
+# set __fish_bin_dir[2] $SCRIPTS_DIR
+set -gx PATH $SCRIPTS_DIR $PATH
+set -gx MANPATH '/usr/share/man' $MANPATH
 
 function fish_user_key_bindings
   bind t 'backward-char'
@@ -27,3 +28,7 @@ alias nv nvim
 
 # opam configuration
 source /home/usr0/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+
+# if status -l
+#   startx
+# end
