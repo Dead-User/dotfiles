@@ -33,11 +33,11 @@ workspace_auto_back_and_forth no
 hide_edge_borders both
 #floating_maximum_size 1200 x 700
 
-#color setting
-#color-classes          border  backgr. text    indicator child-border
-client.focused          #202020 #EFDFEF #000000 #2E9EF4   #EFDFEF
+# colors
+# color-classe          border  backgr. text    indicator child-border
+client.focused          #202020 #66CCFF #000000 #2E9EF4   #66CCFF
 client.unfocused        #404040 #404040 #EFDFEF #2E9EF4   #222222
-client.focused_inactive #202020 #EFDFEF #000000 #2E9EF4   #222222
+client.focused_inactive #202020 #66CCFF #000000 #2E9EF4   #222222
 
 # Multi monitor setup
 workspace "1:web" output $monitor
@@ -52,8 +52,8 @@ workspace "7:com" output $laptop
 for_window [class="feh"] floating enable
 for_window [class="feh"] border none
 
-assign [class="Firefox"] 1:web
-for_window [class="Firefox"] border none
+assign [class="firefox"] 1:web
+for_window [class="firefox"] border none
 
 assign [class="VirtualBox"] 3:vm
 assign [class="PPSSPPSDL"] 5:psp
@@ -69,33 +69,41 @@ for_window [instance="popup"]\
 move position center
                               
 
-#gaps relative
-#smart_gaps on
+# gaps relative
+# smart_gaps on
 smart_borders on
 gaps inner 10
 gaps outer 0
 
-#auto runs
-exec compton -bc
-exec random-bg
-exec mpd
-exec fcitx
+# the status bar
 exec launch-bar 0
 exec launch-bar 1
 
+# exec firefox
+exec random-bg
+exec fcitx
+
+
+# append the layout and fill it with windows
+# exec i3-msg "workspace 6:sys; append_layout ~/dotfiles/i3/layout-sys.json"
+# exec alacritty --class htop  -e htop
+# exec alacritty --class vimpc -e init-vimpc
+# exec alacritty
+
+# for some reasons, swallowed windows must be started before compton,
+# otherwise they would not enjoy transpanrency. Therefore a custom
+# script is used, inserting a 0.1 sec sleep
+exec i3-layout-sys
+
 #set the default volume
-# exec amixer set -M Headphone 50%
-# exec amixer set Speaker 0
-# exec amixer set -M PCM 40%
-# exec amixer set -M Master 30%
+exec amixer set -M Headphone 50%
+exec amixer set Speaker 0
+exec amixer set -M PCM 40%
+exec amixer set -M Master 50%
 
-
-#append the layout and fill it with windows
-exec i3-msg "workspace 6:sys; append_layout ~/.i3/layout1.json"
-exec alacritty --class htop  -e htop
-exec alacritty --class vimpc -e init-vimpc
-exec alacritty
-
+# Compton must be executed after pre-opened windowns are actually opened,
+# otherwise these pre-opened windowns would not enjoy transparency
+# exec compton -bc
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -246,7 +254,7 @@ bindsym $Mod+v reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $Mod+x restart
 # exit i3 (logs you out of your X session)
-bindsym $Mod+z exec alacritty -e exit-i3
+bindsym $Mod+z exec new-terminal --exec exit-i3
 
 
 # resize window (you can also use the mouse for that)
