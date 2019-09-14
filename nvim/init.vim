@@ -26,14 +26,15 @@ let g:python3_host_prog='/usr/bin/python3'
 call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
 Plug '~/.config/nvim/plugged/vim-fcitx'
-Plug '~/.config/nvim/plugged/merlin'
+"Plug '~/.config/nvim/plugged/merlin'
+Plug 'ocaml/merlin'
 "Plug 'autozimu/LanguageClient-neovim', {
 "      \'branch': 'next',
 "      \'do': 'bash install.sh',
 "      \}
 Plug 'mbbill/fencview'
 Plug 'lambdalisue/suda.vim'
-Plug 'idris-hackers/idris-vim'
+"Plug 'idris-hackers/idris-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-syntastic/syntastic'
 call plug#end()
@@ -46,7 +47,6 @@ let loaded_matchparen = 1
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
-let no_ocaml_maps = 1 "we have merlin!
 
 "fencview
 let g:fencview_autodetect=1
@@ -69,6 +69,7 @@ let g:syntastic_check_on_wq = 0
 filetype on
 filetype indent on
 filetype plugin on
+let g:no_ocaml_maps = 1
 
 set shiftwidth=2
 set expandtab
@@ -92,30 +93,38 @@ inoremap <C-o> <C-x><C-o>
 "repl setup
 function! Eval()
   if !exists("s:repl_cmd")
-    let s:repl_cmd = &l:filetype . " "
     if &l:filetype == 'haskell'
-      let s:repl_cmd = 'ghci '
+      let s:repl_cmd = 'ghci'
+    else
+      let s:repl_cmd = &l:filetype 
     endif
   endif
   "[popup] a tiny script used to interact with the window manager
-  call system('new-terminal --popup ' . s:repl_cmd . expand('%:p'))
+  call jobstart(['new-terminal', '--exec', 'run-prog', s:repl_cmd, expand('%:p')])
 endfunction
 cnoremap repl call Eval()
 
 "compile setup
 function! Make()
-  if !exists("s:make_cmd")
-    let s:make_cmd = ' ./make'
+  if !exists('s:make_cmd')
+    if filereadable('./all.do')
+      let s:make_cmd = 'redo'
+    elseif filereadable('./Makefile')
+      let s:make_cmd = 'make'
+    else
+      let s:make_cmd = "echo don't know how to make"
+    endif
   endif
   "[popup] a tiny script used to interact with the window manager
-  call system('new-terminal --popup --directory ' . expand('%:p:h') . s:make_cmd)
+  call jobstart(['new-terminal', '--exec', 'run-prog', s:make_cmd])
 endfunction
 cnoremap make call Make()
 
 "popup terminal, better than vim's own window system.
 "after all, why not use a real window manager?
 function! Term()
-  call system('new-terminal --popup --no-cmd --directory ' . expand('%:p:h'))
+  " call jobstart(['new-terminal', '--popup', '--no-cmd'])
+  call jobstart(['new-terminal'])
 endfunction
 cnoremap term call Term()
 
