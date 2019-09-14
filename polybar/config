@@ -62,8 +62,8 @@ font-0 = Monaco:pixelsize=10;1
 font-1 = "Font\ Awesome\ 5\ Free:size=10:style=solid"
 font-2 = "wenquan:pixelsize=10"
 
-modules-left = current-monitor xbacklight alsa my-mpd-status mpd
-modules-center = i3
+modules-left = backlight-acpi alsa my-mpd-status mpd
+modules-center = current-monitor i3
 modules-right = wlan battery memory cpu temperature date 
 
 tray-position =
@@ -113,8 +113,8 @@ font-0 = Monaco:pixelsize=10;1
 font-1 = "Font\ Awesome\ 5\ Free:size=10:style=solid"
 font-2 = "wenquan:pixelsize=10"
 
-modules-left = current-monitor xbacklight alsa my-mpd-status
-modules-center = i3
+modules-left = xbacklight alsa my-mpd-status
+modules-center = current-monitor i3
 modules-right = wlan battery date 
 
 tray-position =
@@ -150,6 +150,7 @@ format-background = ${colors.background}
 format-foreground = ${colors.foreground}
 format-underline = ${colors.ice}
 label = %output%
+interval = 1
 
 
 
@@ -184,7 +185,7 @@ label-unfocused= " %name% "
 label_unfocused-padding = 0
 
 ; visible = Active workspace on unfocused monitor
-label-visible = %name%
+label-visible = " %name% "
 label-visible-background = ${self.label-focused-background}
 # label-visible-underline = ${self.label-focused-underline}
 label-visible-underline = ${colors.ice}
@@ -201,11 +202,11 @@ label-urgent-padding = 0
 
 [module/my-mpd-status]
 type = custom/script
-exec = my-mpd-status 15
+exec = my-mpd-status -p 0.5 -l 15
 tail = true
 
 format = <label>
-label = " %output:15%"
+label = " %output%"
 interval = 1
 
 [module/mpd]
@@ -244,7 +245,7 @@ bar-empty-foreground = ${colors.foreground-alt}
 [module/backlight-acpi]
 inherit = module/xbacklight
 type = internal/backlight
-card = intel_backlight
+card = acpi_video0
 
 [module/cpu]
 type = internal/cpu
