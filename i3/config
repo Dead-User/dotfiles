@@ -16,7 +16,7 @@
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:Monaco 9
-#font pango:WenQuanYi Micro Hei Mono 10
+font pango:WenQuanYi Micro Hei Mono 9
 
 #global variants
 set $Mod Mod4
@@ -34,7 +34,7 @@ hide_edge_borders both
 #floating_maximum_size 1200 x 700
 
 # colors
-# color-classe          border  backgr. text    indicator child-border
+# color-class           border  backgr. text    indicator child-border
 client.focused          #202020 #66CCFF #000000 #2E9EF4   #66CCFF
 client.unfocused        #404040 #404040 #EFDFEF #2E9EF4   #222222
 client.focused_inactive #202020 #66CCFF #000000 #2E9EF4   #222222
@@ -42,7 +42,7 @@ client.focused_inactive #202020 #66CCFF #000000 #2E9EF4   #222222
 # Multi monitor setup
 workspace "1:web" output $monitor
 workspace "2:vim" output $monitor
-workspace "3:vm"  output $monitor
+workspace "3:win" output $monitor
 workspace "4:mda" output $monitor
 workspace "5:psp" output $monitor
 workspace "6:sys" output $laptop
@@ -55,8 +55,13 @@ for_window [class="feh"] border none
 assign [class="firefox"] 1:web
 for_window [class="firefox"] border none
 
-assign [class="VirtualBox"] 3:vm
+assign [class="Vimb"] 1:web
+
+assign [class="VirtualBox"] 3:win
 assign [class="PPSSPPSDL"] 5:psp
+
+assign [class="Wine"] 3:win
+for_window [class="Wine"] floating enable
 
 assign [class="Gimp"] 4:mda
 
@@ -64,9 +69,9 @@ assign [class="gFTP"] 7:com
 
 for_window [instance="popup"] floating enable
 for_window [instance="popup"]\
-resize set 1200 700
+  resize set 1200 700
 for_window [instance="popup"]\
-move position center
+  move position center
                               
 
 # gaps relative
@@ -211,7 +216,7 @@ bindsym $Mod+Shift+Return scratchpad show
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:web"
 set $ws2 "2:vim"
-set $ws3 "3:vm"
+set $ws3 "3:win"
 set $ws4 "4:mda"
 set $ws5 "5:psp"
 set $ws6 "6:sys"
