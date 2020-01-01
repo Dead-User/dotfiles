@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+source "$HOME/.local/share/zsh/zsh_vars"
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -23,9 +24,9 @@ source "$MY_ZSH_PLUG_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$MY_ZSH_PLUG_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # z.lua
-eval "$(lua $MY_ZSH_PLUG_PATH/z.lua/z.lua --init zsh)"
+eval "$(lua $MY_ZSH_PLUG_PATH/z.lua/z.lua --init zsh enhanced)"
 alias zb='z -b'
-alias zc='z -c'
+alias zc='z -c $PWD'
 
 # alias
 alias nv=nvim
@@ -49,3 +50,6 @@ DISABLE_CORRECTION='true'
 setopt inc_append_history
 
 fpath=("$MY_ZSH_DOT_PATH/functions" $fpath)
+export PATH="$SCRIPT_DIR:$PATH"
+eval $(opam env)
+
