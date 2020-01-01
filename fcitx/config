@@ -1,6 +1,6 @@
 [Hotkey]
 # Trigger Input Method
-#TriggerKey=CTRL_SPACE
+TriggerKey=CTRL_SPACE CTRL_SPACE
 # Use extra trigger key only after using it to inactivate
 # Available Value:
 # True False
@@ -52,7 +52,7 @@
 # Reload configuration
 #ReloadConfig=CTRL_5
 # Interval of Two Key Input
-#TimeInterval=250
+TimeInterval=274
 # Switching Virtual Keyboard
 #VKSwitchKey=CTRL_ALT_B
 # Switching Remind Mode
@@ -105,7 +105,7 @@
 # True False
 #SendTextWhenSwitchEng=True
 # Candidate Word Number
-#CandidateWordNumber=5
+CandidateWordNumber=10
 # Give the tips of Phrase
 # Available Value:
 # True False
@@ -144,4 +144,4 @@
 # Available Value:
 # True False
 #HideInputWindowWhenOnlyOneCandidate=False
-# SkinType=dark
+
