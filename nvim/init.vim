@@ -27,7 +27,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/plugged/vim-racket'
 Plug '~/.config/nvim/plugged/vim-fcitx'
 "Plug '~/.config/nvim/plugged/merlin'
-Plug 'ocaml/merlin'
 "Plug 'autozimu/LanguageClient-neovim', {
 "      \'branch': 'next',
 "      \'do': 'bash install.sh',
@@ -37,7 +36,12 @@ Plug 'lambdalisue/suda.vim'
 "Plug 'idris-hackers/idris-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-syntastic/syntastic'
+Plug 'rust-lang/rust.vim'
+"Plug 'ELLIOTTCABLE/vim-menhir'
 call plug#end()
+
+let g:opamshare = substitute(system('opam config var share'), '\n$', '', '')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 "language servers
 "let g:LanguageClient_serverCommands = {
@@ -91,18 +95,19 @@ nnoremap <leader>dm :delmarks
 inoremap <C-o> <C-x><C-o>
 
 "repl setup
-function! Eval()
-  if !exists("s:repl_cmd")
+function! Run()
+  if !exists("s:run_cmd")
     if &l:filetype == 'haskell'
-      let s:repl_cmd = 'ghci'
+      let s:run_cmd = 'ghci'
+    elseif filereadable('./Cargo.toml')
+      let s:run_cmd = 'cargo run'
     else
-      let s:repl_cmd = &l:filetype 
+      let s:run_cmd = &l:filetype 
     endif
   endif
-  "[popup] a tiny script used to interact with the window manager
-  call jobstart(['new-terminal', '--exec', 'run-prog', s:repl_cmd, expand('%:p')])
+  call jobstart(['new-terminal', '--exec', 'run-prog', s:run_cmd, expand('%:p')])
 endfunction
-cnoremap repl call Eval()
+cnoremap run call Run()
 
 "compile setup
 function! Make()
@@ -111,14 +116,44 @@ function! Make()
       let s:make_cmd = 'redo'
     elseif filereadable('./Makefile')
       let s:make_cmd = 'make'
+    elseif filereadable('dune')
+      let s:make_cmd = 'dune build'
+    elseif filereadable('Cargo.toml')
+      let s:make_cmd = 'cargo build'
     else
-      let s:make_cmd = "echo don't know how to make"
+      let s:make_cmd = 'echo don\'t know how to make'
     endif
   endif
   "[popup] a tiny script used to interact with the window manager
   call jobstart(['new-terminal', '--exec', 'run-prog', s:make_cmd])
 endfunction
 cnoremap make call Make()
+
+function! Test()
+  if !exists('s:test_cmd')
+    if filereadable('./dune')
+      let s:test_cmd = 'dune runtest'
+    elseif filereadable('./test.sh')
+      let s:test_cmd = './test.sh'
+    else
+      let s:test_cmd = 'echo don\'t know how to test'
+    endif
+  endif
+  call jobstart(['new-terminal', '--exec', 'run-prog', s:test_cmd])
+endfunction
+cnoremap test call Test()
+
+function! Check()
+  if !exists('s:check_cmd')
+    if filereadable('Cargo.toml')
+      let s:check_cmd = 'cargo check'
+    else
+      let s:check_cmd = 'echo don\'t know how to check'
+    endif
+  endif
+  call jobstart(['new-terminal', '--exec', 'run-prog', s:check_cmd])
+endfunction
+cnoremap check call Check()
 
 "popup terminal, better than vim's own window system.
 "after all, why not use a real window manager?
@@ -127,6 +162,7 @@ function! Term()
   call jobstart(['new-terminal'])
 endfunction
 cnoremap term call Term()
+
 
 
 "reverse ` and ' since the former is more useful
