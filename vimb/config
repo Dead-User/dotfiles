@@ -1,0 +1,85 @@
+
+
+########## key maps #########
+# left
+  nnoremap t h
+# right
+  nnoremap n l
+# up
+  nnoremap r k
+# down
+  nnoremap h j
+
+# half page up
+  nnoremap R <C-U>
+# half page down
+  nnoremap H <C-D>
+
+# back in history
+  nnoremap T <C-O>
+# forward in history
+  nnoremap N <C-I>
+
+# search forward
+  nnoremap j n
+# search backward
+  nnoremap k N
+
+# reload
+  nnoremap x r
+# reload without cache
+  nnoremap X R
+
+# open in new tab
+  nnoremap O :tabopen 
+# open bookmark 
+  nnoremap b :open !
+# open bookmark in new tab
+  nnoremap B :tabopen !
+
+
+# toggle style sheet
+  nnoremap <C-n> :set stylesheet!<CR>
+
+######## key maps end #########
+
+######## settings ########
+
+  set webgl = true
+  set accelerated-2d-canvas = true
+  set media-stream = true
+  set mediasource = true
+  set webaudio = true
+
+  set allow-file-access-from-file-urls = true
+  set cookie-accept = origin
+
+  set download-path = ~/Downloads
+# set download-command = aria2c --enable-rpc=false %s
+# set download-use-external = true
+  set download-use-external = false
+  set editor-command = new-terminal --exec nvim %s
+  set input-autohide = true
+  set spell-checking = true
+  set smooth-scrolling = true
+  set incsearch = true
+  set webinspector = true
+
+  set default-font = Monaco
+  set monospace-font = Monaco
+  set font-size = 18
+  set hint-keys = itehonasdlurygxkfbzjpc
+  set stylesheet = true
+  set user-scripts = false
+  set scripts = true
+
+  set input-css = color:#feeeed; background-color:#202020; font: 12pt Monaco
+  set status-css = color:#feeeed; background-color:#303030; font: 12pt Monaco
+######### settings end ########
+
+######### auto commands #######
+# au * LoadFinished eval injectDarkStyle()
+  au * LoadStarted eval print('testing')
+  au * LoadFinished eval print('testing')
+  au * LoadCommited eval print('testing')
+######### auto commands end #######
