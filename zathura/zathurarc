@@ -1,0 +1,10 @@
+
+map [normal] t scroll left
+map [normal] n scroll right
+map [normal] r scroll up
+map [normal] R scroll half-up
+map [normal] h scroll down
+map [normal] H scroll half-down
+map [normal] j search next
+map [normal] k search previous
+map [normal] x recolor
