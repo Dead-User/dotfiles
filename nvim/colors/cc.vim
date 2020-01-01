@@ -7,7 +7,7 @@ endif
 
 let colors_name = "cc"
 
-hi Normal guifg=#EFDFEF guibg=NONE
+hi Normal guifg=#FEEEED guibg=NONE
 
 "line numbers
 hi LineNr guifg=#FFFFFF
