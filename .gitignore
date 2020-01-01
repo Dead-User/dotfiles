@@ -6,5 +6,6 @@
 /fcitx/log
 /nvim/plugged
 /nvim/.netrwhist
+/nvim/autoload
 */.git/*
 
