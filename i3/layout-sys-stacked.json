@@ -1,0 +1,84 @@
+// vim:ts=4:sw=4:et
+{
+    // stacked split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "stacked",
+    "percent": null,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1024,
+               "width": 1365,
+               "x": 0,
+               "y": 0
+            },
+            "name": "fish /home/usr0",
+            "percent": 0.5,
+            "swallows": [
+               {
+                "class": "^Alacritty$",
+                "instance": "^Alacritty$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            // splith split container with 2 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.5,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 2,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 410,
+                       "width": 642,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "name": "htop",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                        "class": "^Alacritty$",
+                        "instance": "^htop$",
+                        "title": "^Alacritty$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "pixel",
+                    "current_border_width": 3,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 410,
+                       "width": 642,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "name": "vimpc",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                        "class": "^Alacritty$",
+                        "instance": "^vimpc$",
+                        "title": "^Alacritty$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+
