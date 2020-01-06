@@ -23,34 +23,50 @@ endif
 
 let g:python3_host_prog='/usr/bin/python3'
 
-call plug#begin('~/.config/nvim/plugged')
-Plug '~/.config/nvim/plugged/vim-racket'
-Plug '~/.config/nvim/plugged/vim-fcitx'
-"Plug '~/.config/nvim/plugged/merlin'
-"Plug 'autozimu/LanguageClient-neovim', {
-"      \'branch': 'next',
-"      \'do': 'bash install.sh',
-"      \}
-Plug 'mbbill/fencview'
-Plug 'lambdalisue/suda.vim'
-"Plug 'idris-hackers/idris-vim'
-Plug 'Yggdroot/indentLine'
-Plug 'vim-syntastic/syntastic'
-Plug 'rust-lang/rust.vim'
-"Plug 'ELLIOTTCABLE/vim-menhir'
-call plug#end()
+"dein config
+let g:dein_install_dir = '~/.local/share/nvim/dein'
+execute "set rtp+=" . g:dein_install_dir . '/repos/github.com/Shougo/dein.vim'
 
-let g:opamshare = substitute(system('opam config var share'), '\n$', '', '')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
+if dein#load_state(g:dein_install_dir)
+  call dein#begin(g:dein_install_dir)
+"plugins
+  call dein#add(g:dein_install_dir . '/repos/github.com/Shougo/dein.vim')
+
+  call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': 'bash install.sh'})
+  call dein#add('dense-analysis/ale')
+
+  call dein#add('mbbill/fencview')
+  call dein#add('lambdalisue/suda.vim')
+  call dein#add('Yggdroot/indentLine')
+  call dein#add(g:dein_install_dir . '/local_plugins/vim-fcitx')
+
+  let g:opamshare = substitute(system('opam config var share'), '\n$', '', '')
+  call dein#add(g:opamshare . '/merlin/vim', { 'on_ft': 'ocaml' })
+
+  call dein#end()
+  call dein#save_state()
+endif
 
 "language servers
-"let g:LanguageClient_serverCommands = {
-"      \'ocaml':['/usr/bin/ocaml-language-server', '--node-ipc'],
-"      \}
-let loaded_matchparen = 1
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+      \}
+
+function LSP_Omni_Complete()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    set omnifunc=LanguageClient#complete
+  endif
+endfunction
+
+autocmd FileType * call LSP_Omni_Complete()
+
+let g:LanguageClient_diagnosticsEnable = 0
 
 set encoding=utf-8 fileencodings=utf-8,sjis-8,cp936
 set fileformats=unix,dos
+
+let loaded_matchparen = 1
+
 
 "fencview
 let g:fencview_autodetect=1
@@ -62,13 +78,12 @@ let g:indentLine_setColors = 0
 let g:indentLine_char = '|'
 let g:indentLine_enabled = 0
 
-"syntastic
-let g:syntastic_ocaml_checkers = ['merlin']
-let g:syntastic_enable_racket_racket_checker = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+
+"ale
+let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = 0
+
+
 
 filetype on
 filetype indent on
@@ -83,17 +98,6 @@ set nobackup
 set termguicolors
 colorscheme cc
 
-let mapleader=" "
-let maplocalleader=" "
-
-cnoremap w!! w suda://%<CR>
-
-nnoremap <leader>s :%s/
-nnoremap <leader>dm :delmarks
-"nnoremap <leader>t :call LanguageClient_textDocument_hover()<CR>
-
-inoremap <C-o> <C-x><C-o>
-
 "repl setup
 function! Run()
   if !exists("s:run_cmd")
@@ -107,7 +111,6 @@ function! Run()
   endif
   call jobstart(['new-terminal', '--exec', 'run-prog', s:run_cmd, expand('%:p')])
 endfunction
-cnoremap run call Run()
 
 "compile setup
 function! Make()
@@ -127,7 +130,6 @@ function! Make()
   "[popup] a tiny script used to interact with the window manager
   call jobstart(['new-terminal', '--exec', 'run-prog', s:make_cmd])
 endfunction
-cnoremap make call Make()
 
 function! Test()
   if !exists('s:test_cmd')
@@ -141,7 +143,6 @@ function! Test()
   endif
   call jobstart(['new-terminal', '--exec', 'run-prog', s:test_cmd])
 endfunction
-cnoremap test call Test()
 
 function! Check()
   if !exists('s:check_cmd')
@@ -153,7 +154,6 @@ function! Check()
   endif
   call jobstart(['new-terminal', '--exec', 'run-prog', s:check_cmd])
 endfunction
-cnoremap check call Check()
 
 "popup terminal, better than vim's own window system.
 "after all, why not use a real window manager?
@@ -161,60 +161,7 @@ function! Term()
   " call jobstart(['new-terminal', '--popup', '--no-cmd'])
   call jobstart(['new-terminal'])
 endfunction
-cnoremap term call Term()
 
-
-
-"reverse ` and ' since the former is more useful
-nnoremap ` '
-nnoremap ' `
-
-"cancelling highlight
-noremap <esc> :nohl<CR>
-
-"all about arrow keys
-nnoremap t h
-nnoremap T b
-nnoremap <C-t> ^
-vnoremap t h
-vnoremap T b
-vnoremap <C-t> ^
-
-nnoremap r k
-nnoremap R <C-u>
-vnoremap r k
-vnoremap R <C-u>
-
-nnoremap h j
-nnoremap H <C-d>
-vnoremap h j
-vnoremap H <C-d>
-
-nnoremap n l
-nnoremap N e
-nnoremap <C-n> $
-vnoremap n l
-vnoremap N e
-vnoremap <C-n> $
-
-nnoremap j n
-nnoremap k N
-
-"the status line
-set statusline =%#StatusLine# "color
-set statusline+=%f            "file name
-set statusline+=%r:           "read-only flag
-set statusline+=\ %L          "line count
-set statusline+=\ lines
-set statusline+=%=            "end of left section
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%=            "end of middle section
-
-set statusline+=<%B>          "hex code of cursor char
-set statusline+=\ %5l,\ %c    "current line and column
-set statusline+=\ \ [nvim]%*
-
+source ~/.config/nvim/keymap.vim
+source ~/.config/nvim/statusLine.vim
 
