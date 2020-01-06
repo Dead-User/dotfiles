@@ -35,9 +35,9 @@ hide_edge_borders both
 
 # colors
 # color-class           border  backgr. text    indicator child-border
-client.focused          #202020 #66CCFF #000000 #2E9EF4   #66CCFF
-client.unfocused        #404040 #404040 #EFDFEF #2E9EF4   #222222
-client.focused_inactive #202020 #66CCFF #000000 #2E9EF4   #222222
+client.focused          #202020 #FEEEED #000000 #2E9EF4   #FEEEED
+client.unfocused        #404040 #404040 #FEEEED #2E9EF4   #222222
+client.focused_inactive #202020 #FEEEED #000000 #FEEEED   #222222
 
 # Multi monitor setup
 workspace "1:web" output $monitor
@@ -68,10 +68,7 @@ assign [class="Gimp"] 4:mda
 assign [class="gFTP"] 7:com
 
 for_window [instance="popup"] floating enable
-for_window [instance="popup"]\
-  resize set 1200 700
-for_window [instance="popup"]\
-  move position center
+for_window [instance="popup"] move position center
                               
 
 # gaps relative
