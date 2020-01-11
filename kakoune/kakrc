@@ -9,19 +9,11 @@ hook global WinSetOption filetype=(rust|ocaml) %{
 set global lsp_hover_anchor true
 
 
-
-# custom commands 
-define-command -params 1 \
-  -file-completion \
-  -docstring "open and edit a file in a new window" \
-  tabe %{
-      evaluate-commands %sh{ 
-        setsid -f new-terminal --no-popup --exec kak -c $kak_session $1 < /dev/null > /dev/null 2>&1 &
-  }}
-
+# custom commands concerning x11
+source "%val{config}/x11.kak"
 
 # key maps
 source "%val{config}/keymap.kak"
 
-# custom scripts
+# custom hooks for switch input method through fcitx
 source "%val{config}/fcitx.kak"
