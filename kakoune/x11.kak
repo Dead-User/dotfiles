@@ -1,5 +1,13 @@
 
 
+define-command term \
+  -shell-completion \
+  -docstring "open a new popup (floating) terminal"  %{
+      nop %sh{
+          setsid -f new-terminal < /dev/null > /dev/null 2>&1 &
+      }
+  }
+
 define-command tabe \
   -params 1 \
   -file-completion \
