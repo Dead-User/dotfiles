@@ -1,6 +1,7 @@
 
 FILE_TYPE=$1
 OP=$2
+shift 2
 TYPE=$(
   if [ $FILE_TYPE = rust -a -e "Cargo.toml" ]; then
       echo cargo
@@ -16,20 +17,15 @@ TYPE=$(
   fi)
 
  case $TYPE:$OP in
-     "cargo:make" ) cargo build;;
-     "cargo:run"  ) cargo run;;
-     "cargo:test" ) cargo test;;
-     "dune:make"  ) dune build;;
-     "dune:run"   )
-         read -p "Executable name:" EXECUTABLE
-         dune exec $EXECUTABLE;;
-     "dune:test" ) dune runtest;;
-     "make:make" ) make;;
-     "make:.*"   )
-         echo Don\'t know how to $OP >&2
-         exit 1;;
-     "redo:make" ) redo all.do;;
-     "redo:.*"   )
+     "cargo:make" ) cargo build $*;;
+     "cargo:run"  ) cargo run   $*;;
+     "cargo:test" ) cargo test  $*;;
+     "dune:make"  ) dune build  $*;;
+     "dune:run"   ) dune exec   $*;;
+     "dune:test" ) dune runtest $*;;
+     "make:make" ) make         $*;;
+     "redo:make" ) redo all.do  $*;;
+     "*"         )
          echo Don\'t know how to $OP >&2
          exit 1;;
 esac
