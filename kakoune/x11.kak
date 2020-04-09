@@ -9,13 +9,33 @@ define-command term \
       }
   }
 
-define-command tabe \
-  -params 1 \
-  -file-completion \
-  -docstring "edit a file in a new terminal" \
+define-command tab \
+  -params 1.. \
+  -command-completion \
+  -docstring "do stuffs in a new tab (terminal)" \
   %{
-      term --no-popup --exec kak -c %val{session} %arg{1}
+        term --no-popup --exec kak -c %val{session} -e "'%arg{@}'"
+        echo kak -c %val{session} -e "'%arg{@}'"
   }
+
+define-command tabq \
+  -params 0 \
+  -docstring "quit a tab (separate window) and delete the buffer" \
+  %{
+      delete-buffer
+      quit
+  }
+alias global tq tabq
+
+define-command tabwq \
+  -params 0 \
+  -docstring "write quit a tab (separate window) and delete the buffer" \
+  %{
+      write
+      delete-buffer
+      quit
+  }
+alias global twq tabwq
 
 
 define-command make \

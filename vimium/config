@@ -1,0 +1,18 @@
+# Insert your preferred key mappings here.
+map <c-t> scrollLeft
+map <c-n> scrollRight
+map r scrollUp
+map h scrollDown
+map t previousTab
+map n nextTab
+map T goBack
+map N goForward
+
+map R scrollPageUp
+map H scrollPageDown
+map k performBackwardsFind
+map j performFind
+
+map Q removeTab
+map u restoreTab
+map x reload

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+eval "$*"
+read -p 'Press ENTER to exit.'

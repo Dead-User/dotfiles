@@ -1,0 +1,41 @@
+#!/bin/bash
+
+popup='--class=popup'
+cmd=''
+dir=''
+argv=($*)
+
+if [ $# -eq 0 ]; then
+  alacritty $popup
+else
+  for (( i=0; $i < $#; i=$i + 1 )) do
+    arg=${argv[$i]}
+    case $arg in
+      '--no-popup' )
+        popup='';;
+      '--dir' )
+        i=$((i + 1))
+        if [ $# -eq $i ]; then
+          echo no directory given >&2 
+          exit 1
+        fi
+        dir="--working-directory ${argv[$i]}";;
+      '--exec' )
+        i=$((i + 1))
+        cmd="-e ${argv[@]:$i}"
+        i=$#;;
+      '--help' )
+        echo "new-terminal [OPTS]: open a new virtual terminal"
+        echo "[OPTS]:"
+        echo "    --no-popup: do not set terminal class to 'popup'"
+        echo "    --dir  DIR: set the working directory of the terminal to DIR"
+        echo "    --exec CMD: let the shell execute CMD. All arguments after --exec will be parsed as CMD"
+        echo "    --help    : display this message"
+        exit 0;;
+      * )
+        echo "unknown option $arg"
+        exit 1;;
+    esac
+  done
+  eval "alacritty $popup $dir $cmd"
+fi

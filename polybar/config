@@ -34,7 +34,7 @@ orange = #ffa000
 ; Primary bar
 [bar/bar0]
 ;monitor = ${env:MONITOR:HDMI-1}
-monitor = DP1
+monitor = DP-1
 width = 100%
 height = 20
 offset-x = 0
@@ -58,9 +58,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Monaco:pixelsize=10;1
-font-1 = "Font\ Awesome\ 5\ Free:size=10:style=solid"
-font-2 = "Wen\ Quan\ Yi\ Micro\ Hei\ Mono:pixelsize=12.5"
+font-0 = Monaco:pixelsize=12;1
+font-1 = "Font\ Awesome\ 5\ Free:size=12:style=solid"
+font-2 = "Wen\ Quan\ Yi\ Micro\ Hei\ Mono:pixelsize=15"
 
 modules-left = alsa my-mpd-status mpd
 modules-center = current-monitor i3
@@ -85,14 +85,16 @@ cursor-scroll = ns-resize
 
 ; Secondary bar
 [bar/bar1]
-monitor = eDP1
+monitor = eDP-1
 width = 100%
-height = 20
+height = 25
 offset-x = 0
 offset-y = 0
 radius = 6.0
 fixed-center = true
 bottom = true
+
+enable-ipc = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -109,13 +111,13 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Monaco:pixelsize=10;1
-font-1 = "Font\ Awesome\ 5\ Free:size=10:style=solid"
-font-2 = "Wen\ Quan\ Yi\ Micro\ Hei\ Mono:pixelsize=12.5"
+font-0 = Monaco:pixelsize=12;1
+font-1 = "Font\ Awesome\ 5\ Free:size=12:style=solid"
+font-2 = "Wen\ Quan\ Yi\ Micro\ Hei\ Mono:pixelsize=14"
 
-modules-left = alsa my-mpd-status mpd 
+modules-left = notification alsa my-mpd-status mpd 
 modules-center = current-monitor i3
-modules-right = wlan battery memory cpu date 
+modules-right = wlan battery memory cpu temperature date toggle-keyboard 
 
 tray-position =
 tray-padding = 2
@@ -163,7 +165,7 @@ type = internal/i3
 format = <label-state><label-mode>
 index-sort = true
 wrapping-scroll = false
-enable-click = false
+enable-click = true
 enable-scroll = false
 strip-wsnumbers = true
 
@@ -206,8 +208,10 @@ exec = my-mpd-status -p 0.5 -l 15
 tail = true
 
 format = <label>
-label = " %output%"
+label = " [%output%]"
 interval = 1
+
+click-left = mpc toggle
 
 [module/mpd]
 type = internal/mpd
@@ -265,7 +269,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0b1
+interface = wlp0s20f3
 interval = 1.0
 
 format-connected = <label-connected>
@@ -374,6 +378,21 @@ ramp-1 = 
 ramp-2 = 
 ramp-forground = ${colors.foreground}
 
+[module/toggle-keyboard]
+type = custom/text
+content = 
+click-left = toggle-tablet-mode
+
+[module/notification]
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = cat /tmp/notification
+format = <output>
+
+initial = 1
+
+
+
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
@@ -384,5 +403,6 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
+
 
 ; vim:ft=dosini

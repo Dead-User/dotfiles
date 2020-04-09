@@ -1,12 +1,19 @@
 
+# general setups
+set-option global tabstop 4
+add-highlighter global/ number-lines -relative -hlcursor 
 
 # lsp
-evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
 hook global WinSetOption filetype=(rust|ocaml) %{
-    lsp-enable-window
+   lsp-enable-window
 }
 
 set global lsp_hover_anchor true
+
+define-command lsp-reload-window \
+  -params 0 \
+  %{ lsp-disable-window; lsp-enable-window }
 
 
 # custom commands concerning x11
@@ -17,3 +24,9 @@ source "%val{config}/keymap.kak"
 
 # custom hooks for switch input method through fcitx
 source "%val{config}/fcitx.kak"
+
+# colors
+source "%val{config}/colors.kak"
+
+# filetype specific plugins
+source "%val{config}/ocp-indent.kak"

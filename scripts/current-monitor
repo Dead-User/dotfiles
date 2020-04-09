@@ -1,0 +1,8 @@
+#!/bin/bash
+
+x_coord=$(xdotool getmouselocation | awk '{print $1}' | awk -F: '{print $2}')
+if [ $x_coord -gt 1920 ]; then
+  echo '2'
+else
+  echo '1'
+fi

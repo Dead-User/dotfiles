@@ -1,0 +1,320 @@
+;;; SOV.el --- Subject-Object-Verb style editing primitives -*- lexical-binding: t; -*-
+;;
+
+;;; Commentary:
+
+;; This is a set of editing primitives in Subject-Object-Verb style, inspired by
+;; [kakoune](https://github.com/mawww/kakoune).
+;; In short, commands for `moving cursor' are removed. They are unified with
+;; commands for `expanding selections', like Shift+{up,down,left,right} in Emacs.
+;; Hence, all text editing commands are divided into two categories:
+;; 1. changing selection: These commands move (like traditional navigation commands)
+;;    or expand (Shift+`Arrow Keys') `selection', which is like region in Emacs.
+;; 2. manupulating selection: These commands manupulate the text in the selection
+;;    by killing, copying, moving, upcasing, etc.
+;; And `SOV' means putting commands in category 1 (`object') forward, and commands
+;; in category 2 (`verb') last. The advantage of SOV style is its simplicity and,
+;; most importantly,  ability to support instant visual feedback. Unlike `SVO' order
+;; (the order of most natural languages, including English. Also the order of VIM),
+;; every keystroke in SOV style has an instant visual effect, making it more
+;; interactive and easier to use.
+
+;; This package isn't intended to be a kakoune emulation, or any particular editor.
+;; Instead, it is intended to be a piece of craft used to build your own editor, in
+;; SOV style. This package contains only elisp editing primitives, without any
+;; key-bindings. Hence you can use it with your editing style of choice, including
+;; both Emacs style and modal style like kakoune (VIM is SVO), by cooperating with
+;; other plugins and custom key-bindings.
+;; Also, SOV.el intends to stick as much to existing Emacs facilities as possible.
+;; And it makes many different design choices in terms of some behaviour details,
+;; compared to kakoune.
+
+
+
+
+;;; Naming Convention:
+;; Symbols in SOV.el always start with `sov-'.
+;; Commands changing the selection typically have some variants, first consider
+;; the following two kinds of texts involved:
+;; 1. When performing a command, there might aleardy be some selected texts.
+;;    They are called `previous selections'.
+;; 2. A command is often associated to a piece of text of interest. For example,
+;;    the word found by `forward-word', the text from point to end of line when
+;;    performing `end-of-line'. These texts of interest is said to be `traversed'
+;;    by the command.
+;; This naturally results in three kinds of commands:
+;; 1. move commands, which leave none of previous selections and traversed texts
+;;    selected. Hence the region would be empty after performing these commands.
+;;    These commands' names would have postfix `/move'
+;; 2. select commands, which discard previous selections, but leave the
+;;    traversed text selected. They have postfix `/select'.
+;; 3. expand commands, which keep previous selections while expanding the
+;;    selection with traversed texts. They have postfix `/expand'
+
+
+
+
+;; One major design division between SOV.el and kakoune is that SOV.el introduces
+;; the concept of `direction'. The direction is 'down-right by default, but
+;; 'top-left if the point is at the top-left of the mark.
+
+;; Current direction will affect the behaviour of many commands. For example,
+;; when selecting the current line, the point will end up at the end of line if
+;; direction is 'down-right, or the beginning of line otherwise.
+
+;; The benefit of direction is that it allows a in general smooth experience,
+;; while using fewer commands (i.e. key-bindings). The idea is, the direction
+;; seldom changes during continuous operations, like selecting a block of text
+;; by lines. Hence users only need to control the direction (by as simple as
+;; moving the point left or right) at first, then things would work smoothly.
+;; Without directions, each command would need two variants for different directions,
+;; which is cumbersome, at least for all commands. So users would end up do
+;; things by moving the point and using only commands of one direction. This works,
+;; but direction can make it better, isn't it?
+(defun sov-direction ()
+  "Calculate and return current SOV direction, either 'down-right or 'up-left."
+  ;; The default direction is 'down-right, which applies when there is no active mark.
+  (if (and (use-region-p)
+           (< (point) (mark)))
+      'up-left
+    'down-right))
+
+
+;; Although the author claims that direction works well in `most' times, there
+;; are times the direction has to be changed. The following command can toggle
+;; the direction instantly.
+;;
+;; Note that this command is not perfect, as it has the side effect of swapping
+;; the point and the mark. This is useful when one wants to operate the selection
+;; from the other side, but not useful when one wants to operate in the other
+;; direction at the same side.
+;;
+;; Commands of interest here are those that expand the selection. So performing
+;; them with the alternative direction (opposite to `(sov-direction)')
+;; means narrowing the selection, which is rare (correct me if not ;D), and can
+;; be done by direction-independent commands (moving up, down, right, left, etc.)
+(defun sov-swap-point-and-mark ()
+  "Swap current point and mark (if any)"
+  (interactive)
+  (let ((current-point (point))
+        (current-mark  (mark)))
+    (when current-mark
+      (set-mark current-point)
+      (goto-char current-mark))))
+
+
+;; Discard current selection (reduce it to the point)
+(defun sov-reduce-region-to-point ()
+  (interactive)
+  (set-mark (point)))
+
+
+
+
+;; This macro automatically defines three variants of commands following the
+;; naming convention, given some point-moving commands ACTION, with NAME as
+;; the base name.
+;;
+;; This macro only applies to those simple moving commands like forward-char,
+;; forward-word, next-line, etc.
+(defmacro sov-define-simple-moving-command (name &rest action)
+  (declare (indent defun))
+  (let ((name/move   (intern (concat "sov-" (symbol-name name) "/move")))
+        (name/select (intern (concat "sov-" (symbol-name name) "/select")))
+        (name/expand (intern (concat "sov-" (symbol-name name) "/expand"))))
+    `(progn
+       (defun ,name/move (count)
+         ,(concat "move the selection as " (symbol-name name) ", selects nothing")
+         (interactive "p")
+         (dotimes (_ count)
+           ,@action
+           (set-mark (point))))
+
+       (defun ,name/select (count)
+         ,(concat "discard previous selections, select by " (symbol-name name))
+         (interactive "p")
+         (dotimes (_ count)
+           (set-mark (point))
+           ,@action))
+
+       (defun ,name/expand (count)
+         ,(concat "expand the selection by " (symbol-name name))
+         (interactive "p")
+         (unless (use-region-p)
+         ; If no mark is available (no active selection), set it.
+           (set-mark (point)))
+         (dotimes (_ count)
+           ,@action)))))
+
+
+(sov-define-simple-moving-command forward-char        (forward-char 1))
+(sov-define-simple-moving-command backward-char       (backward-char 1))
+
+(sov-define-simple-moving-command forward-word        (forward-word 1))
+(sov-define-simple-moving-command backward-word       (backward-word 1))
+
+(sov-define-simple-moving-command next-line           (next-line 1))
+(sov-define-simple-moving-command previous-line       (previous-line 1))
+
+(sov-define-simple-moving-command scroll-down         (scroll-down nil))
+(sov-define-simple-moving-command scroll-up           (scroll-up nil))
+
+(sov-define-simple-moving-command beginning-of-line   (beginning-of-line nil))
+(sov-define-simple-moving-command end-of-line         (end-of-line nil))
+
+(sov-define-simple-moving-command beginning-of-buffer (goto-char (point-min)))
+(sov-define-simple-moving-command end-of-buffer       (goto-char (point-max)))
+
+(sov-define-simple-moving-command forward-list        (forward-list 1))
+(sov-define-simple-moving-command backward-list       (backward-list 1))
+
+(defalias 'sov-select-whole-buffer 'mark-whole-buffer)
+
+;; This pair of commands select the current line (or next N-1 line with prefix argument N).
+;; It is quite complex and involves several design choices.
+;;
+;; Basically, we want the following behavious (with direction 'down-right, and the same
+;; logic for 'up-left):
+;; 1. The newline character (of either the current line or the previous line) should
+;;    be selected. So killing the selection after performing this command (without a
+;;    prefix argument) will exactly reduce total line counts by one.
+;; 2. When (and only if) the current line is already fully selected, this command
+;;    should move one line forward and select the next line (without a prefix argument).
+;;    This is the key to smooth continuous selection.
+;; 3. Direction sensitive. That is, when direction is 'down-left, the point ends up at
+;;    the end of line, and the beginning-of-line otherwise.
+;; But the above requirements leave one design choice left undetermined: should we select
+;; the newline character of the previous line or this line? We choose the latter, because
+;; it is easier to implement, and will result in a more natural behaviour when being pasted
+;; (after being killed or copied).
+;;
+;; Note that there is no `sov-line/move' because it is not quite useful.
+(defun sov-line/select (count)
+  (interactive "p")
+  (if (equal (sov-direction) 'down-right)
+      (progn
+        (next-line (1- (or count 1)))
+        (set-mark (line-beginning-position 1))
+        ; Select the trailing newline character of the current line, hence the plus one
+        (goto-char (min (point-max) (1+ (line-end-position 1)))))
+    (previous-line (1- (or count 1)))
+    (set-mark (line-end-position 1))
+    ; Select the trailing newline character of the previous line, since we are
+    ; operating in the other direction.
+    (goto-char (max (point-min) (1- (line-beginning-position 1))))))
+    
+(defun sov-line/expand (count)
+  (interactive "p")
+  (let ((bol (line-beginning-position))
+        (eol (line-end-position)))
+    (if (equal (sov-direction) 'down-right)
+        (progn
+          ; If text from bol to point is not completely marked,
+          ; reset the mark to bol, so that the whole line is selected.
+          (unless (and (use-region-p)
+                       (<= (mark) bol))
+            (set-mark bol))
+          (next-line (- (or count 1) 1))
+          (goto-char (min (point-max) (+ eol 1))))
+      (progn
+        (unless (>= (mark) eol)
+          (set-mark eol))
+        (previous-line (- (or count 1) 1))
+        (goto-char (max (point-min) (- bol 1)))))))
+
+
+
+;; Yanking is, another problem here, especially with line selecting above.
+;; We have different intuition when yanking different texts:
+;; 1. When we yank things like a word, we expect the yanked text to appear directly
+;;    after the point, i.e. yanking works on character level.
+;; 2. When we yank things like many complete lines of text, we expect the yanked text
+;;    to appear on the next line, i.e. yanking works on line level.
+;; The behaviour of kakoune is using the latter when yanked text ends with a newline
+;; character, and the former otherwise. The Emacs behaviour is to always use the
+;; former for kill rings, and leaves the latter to rectangles.
+;;
+;; SOV.el intends to unify classes of operations to selection operations. Hence there
+;; should be a way to decide in which way a particular piece of text should be yanked
+;; automatically, like the kakoune way (because we don't want a separate class of
+;; rectangle operations). However, SOV.el differs from kakoune in the strategy. SOV.el
+;; yanks texts in the former way by default, and uses the latter iff:
+;;    The yanked text starts at a beginning-of-line and ends with a newline character
+;; Such text would be called rectangle text, following Emacs.
+;; TODO: ignore pre-pending whitespace on detection
+;;
+;; Whether a text satisfy this property is decided at kill/copy time, and different
+;; yanking behaviour is achieved via the yank-handler property. Direction also takes
+;; effect here: killing/copying on different directions results in different yanking
+;; directions later.
+;;
+;; One last thing to note is that this strategy fails at system clipboard (or other
+;; external yanking sources). But such situation should be much less frequent than
+;; in-editor yanking.
+(defun sov-yank-handler/down-right (str)
+  "The yank handler for rectangle texts killed/copied at 'down-right direction.
+Creates a newline after current line and inserts the text there."
+  (save-excursion
+    (end-of-line 1)
+    (if (>= (point) (point-max))
+        (newline)
+      (forward-char 1))
+    (insert str)))
+
+(defun sov-yank-handler/up-left (str)
+  "The yank handler for rectangle texts killed/copied at 'up-left direction.
+Creates a newline before current line and inserts the text there."
+  (save-excursion
+    (beginning-of-line 1)
+    (when (<= (point) (point-min))
+      (newline))
+    (backward-char 1)
+    (insert str)))
+
+(defun sov-set-yank-handler-for-rectangle-text (beg end)
+  (interactive "r")
+  (cond
+   ((equal (sov-direction) 'down-right)
+    (when (and (save-excursion
+                 (goto-char beg)
+                 (equal beg (line-beginning-position 1)))
+               (save-excursion
+                 (goto-char end)
+                 (or (equal end (line-end-position 1))
+                     (equal end (line-beginning-position 1)))))
+      (add-text-properties beg end '(yank-handler (sov-yank-handler/down-right nil nil nil)))))
+   (t ; (equal (sov-direction) 'up-left)
+    (when (and (save-excursion
+                 (goto-char beg)
+                 (equal beg (line-end-position 1)))
+               (save-excursion
+                 (goto-char end)
+                 (equal end (line-end-position 1))))
+      (add-text-properties beg end '(yank-handler (sov-yank-handler/up-left nil nil nil)))))))
+
+(defun sov-unset-yank-handler (beg end)
+  (interactive "r")
+  (remove-text-properties beg end '(yank-handler)))
+
+; TODO: register
+(defun sov-kill ()
+  (interactive)
+  (cond
+   ((use-region-p)
+    (let ((beg (region-beginning))
+	  (end (region-end)))
+      (sov-set-yank-handler-for-rectangle-text beg end)
+      (kill-region beg end)
+      (sov-unset-yank-handler beg end)))
+   (t
+    (delete-forward-char 1))))
+    
+
+; TODO: register
+(defun sov-copy-region (beg end)
+  (interactive "r")
+  (sov-set-yank-handler-for-rectangle-text beg end)
+  (kill-ring-save beg end)
+  (sov-unset-yank-handler beg end))
+
+(provide 'sov)

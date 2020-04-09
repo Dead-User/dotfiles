@@ -1,16 +1,17 @@
 #!/bin/zsh
 
-source "$HOME/.local/share/zsh/zsh_vars"
+if [[ -o NO_RCS ]]; then
+    source "$HOM/.zshenv"
+fi
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 # End of lines configured by zsh-newuser-install
+#
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/usr0/.zshrc'
-
-MY_ZSH_DOT_PATH="$HOME/dotfiles/zsh"
-MY_ZSH_PLUG_PATH='/usr/share/zsh/plugins'
 
 autoload -Uz compinit
 compinit
@@ -20,26 +21,30 @@ autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search 
 
-source "$MY_ZSH_PLUG_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$MY_ZSH_PLUG_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# load plugins
+source "$ZSH_PLUG_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$ZSH_PLUG_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # z.lua
-eval "$(lua $MY_ZSH_PLUG_PATH/z.lua/z.lua --init zsh enhanced)"
+eval "$(lua $ZSH_PLUG_PATH/z.lua/z.lua --init zsh enhanced)"
 alias zb='z -b'
 alias zc='z -c $PWD'
 
 # alias
-alias nv=nvim
+# 'sudo kak', with config properly loaded
+alias skak="sudo env KAKOUNE_CONFIG_DIR=$HOME/.config/kak kak"
+# emacs client
+alias emc="emacsclient -a '' -t"
 alias ls='ls --color=auto'
 
 
 # prompt
-source "$MY_ZSH_DOT_PATH/prompt"
+source "$ZSH_DOT_PATH/prompt"
 export PROMPT_PATH_MAX_LEN=10
 
 # colors
-source "$MY_ZSH_DOT_PATH/key-bindings"
-source "$MY_ZSH_DOT_PATH/highlights"
+source "$ZSH_DOT_PATH/key-bindings"
+source "$ZSH_DOT_PATH/highlights"
 
 # options
 setopt PROMPT_SUBST
@@ -50,6 +55,9 @@ DISABLE_CORRECTION='true'
 setopt inc_append_history
 
 fpath=("$MY_ZSH_DOT_PATH/functions" $fpath)
-export PATH="$SCRIPT_DIR:$PATH"
-eval $(opam env)
+export PATH="$HOME/.cargo/bin":"$HOME/.linuxbrew/bin":"$SCRIPTS_PATH:$PATH"
 
+# eval $(opam env)
+
+# opam configuration
+test -r /home/guest0/.opam/opam-init/init.zsh && . /home/guest0/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
