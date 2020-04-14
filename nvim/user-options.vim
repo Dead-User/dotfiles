@@ -44,22 +44,3 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 set termguicolors
-
-"-------------------------------------------------------------
-"                        PLUGIN SPECIFIC 
-"-------------------------------------------------------------
-"LanguageClient-neovim
-let g:LanguageClient_serverCommands = {
-            \ "rust": ["rls"],
-            \ "ocaml": ["ocamllsp"]
-            \ }
-
-function LSPSetupHook()
-    if has_key(g:LanguageClient_serverCommands, &l:filetype)
-        set omnifunc=LanguageClient#complete
-    endif
-endfunction
-
-autocmd FileType * call LSPSetupHook()
-
-

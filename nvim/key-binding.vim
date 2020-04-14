@@ -57,52 +57,6 @@ unlet valid_mark_chars
 nnoremap <Leader>n gt
 noremap  <Leader>t gT
 
-
-" ------------------------------------------------------------
-"                     LANGUAGE SPECIFIC         
-" ------------------------------------------------------------
-
-"--------------------------  LSP  ----------------------------
-function LSPBindings()
-    if has_key(g:LanguageClient_serverCommands, &l:filetype)
-        nnoremap <LocalLeader>t :call LanguageClient#textDocument_hover()<CR>
-        nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-    endif
-endfunction
-
-autocmd FileType * call LSPBindings()
-
-
-"-------------------------- OCaml ----------------------------
-"the default ocaml map controdicts that of LSP
-let g:no_ocaml_maps = 1
-
-
-
-"--------------------------- Coq -----------------------------
-function EnterCoqMode()
-    nnoremap <buffer> <silent> r :CoqBack<CR>
-    nnoremap <buffer> <silent> h :CoqNext<CR>
-    nnoremap <buffer> <silent> <Return> :CoqToCursor<CR>
-    nnoremap <buffer> <silent> <Esc> :call QuitCoqMode()<CR>
-endfunction
-
-function QuitCoqMode()
-    nunmap <buffer> r
-    nunmap <buffer> h
-    nunmap <buffer> <Return>
-    nunmap <buffer> <Esc>
-endfunction
-
-function CoqBindings()
-    nnoremap <silent> <Leader>cr :CoqBack<CR>
-    nnoremap <silent> <Leader>ch :CoqNext<CR>
-    nnoremap <silent> <Leader>cc :call EnterCoqMode()<CR>
-    nnoremap <silent> <Leader>c<Return> :CoqToCursor<CR>
-endfunction
-
-autocmd Filetype coq call CoqBindings()
-
 " ------------------------------------------------------------
 "                             MISC
 " ------------------------------------------------------------
