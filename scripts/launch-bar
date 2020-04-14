@@ -3,10 +3,10 @@
 bar_name='bar'$1
 # Terminate already running bar instances
 ps -ef \
-  | grep $bar_name \
-  | awk '{ system("kill "$2) }'
+    | grep $bar_name \
+    | awk '{ if ($8 != "grep") { system("kill "$2) } }'
 
 # Wait until the processes have been shut down
 # while pgrep -u $UID -x polybar >/dev/null; do sleep 1; end
 
-polybar $bar_name
+polybar $bar_name || exit 0
