@@ -66,8 +66,8 @@ modules-left = alsa my-mpd-status mpd
 modules-center = current-monitor i3
 modules-right = wlan battery memory cpu date 
 
-tray-position =
-tray-padding = 2
+;tray-position =
+;tray-padding = 2
 ;tray-transparent = true
 ;tray-background = #0063ff
 
@@ -119,8 +119,8 @@ modules-left = notification alsa my-mpd-status mpd
 modules-center = current-monitor i3
 modules-right = wlan battery memory cpu temperature date toggle-keyboard 
 
-tray-position =
-tray-padding = 2
+;tray-position =
+;tray-padding = 2
 ;tray-transparent = true
 ;tray-background = #0063ff
 
