@@ -128,6 +128,7 @@ assign_window firefox    web
 assign_window Nightly    web
 assign_window vimb       web
 assign_window Virtualbox emu
+assign_window VirtualBox emu
 assign_window Wine       emu
 assign_window PPSSPPSDL  emu
 assign_window gFTP       net
