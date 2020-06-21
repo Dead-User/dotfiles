@@ -32,7 +32,7 @@ alias zc='z -c $PWD'
 
 # alias
 # 'sudo kak', with config properly loaded
-alias skak="sudo env KAKOUNE_CONFIG_DIR=$HOME/.config/kak kak"
+alias skak="sudo env HOME=$HOME kak"
 # emacs client
 alias emc="emacsclient -a '' -t"
 alias ls='ls --color=auto'
@@ -55,7 +55,7 @@ DISABLE_CORRECTION='true'
 setopt inc_append_history
 
 fpath=("$MY_ZSH_DOT_PATH/functions" $fpath)
-export PATH="$HOME/.cargo/bin":"$HOME/.linuxbrew/bin":"$SCRIPTS_PATH:$PATH"
+export PATH="$HOME/.luarocks/bin":"$HOME/.cargo/bin":"$HOME/.linuxbrew/bin":"$SCRIPTS_PATH:$PATH"
 
 # eval $(opam env)
 
