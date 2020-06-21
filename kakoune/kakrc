@@ -19,8 +19,8 @@ plug "ul/kak-lsp" do %{
 
 plug "delapouite/kakoune-livedown"
 
+# plug "coqoune" load-path "~/Projects/coq/coqoune" subset %{ #}
 plug "guest0x0/coqoune" subset %{
-# plug "coqoune" load-path "~/Projects/coq/coqoune" subset %{
     coqoune.kak
 } config %{
     source "%val{config}/coq.kak"
