@@ -3,17 +3,29 @@
 set-option global tabstop 4
 add-highlighter global/ number-lines -relative -hlcursor 
 
-# lsp
-evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-hook global WinSetOption filetype=(rust|ocaml) %{
-   lsp-enable-window
+
+# packages
+source "~/.local/share/plug-kak/plug.kak/rc/plug.kak"
+set-option global plug_install_dir %sh{ echo "$HOME/.local/share/plug-kak" }
+
+plug "andreyorst/plug.kak" noload
+
+plug "ul/kak-lsp" do %{
+    cargo build --release --locked
+    ln -sf $kak_opt_plug_install_dir/kak-lsp/target/release/kak-lsp ~/.cargo/bin/
+} branch "master" tag "v7.0.0" config %{
+    source "%val{config}/lsp.kak"
 }
 
-set global lsp_hover_anchor true
+plug "delapouite/kakoune-livedown"
 
-define-command lsp-reload-window \
-  -params 0 \
-  %{ lsp-disable-window; lsp-enable-window }
+plug "guest0x0/coqoune" subset %{
+# plug "coqoune" load-path "~/Projects/coq/coqoune" subset %{
+    coqoune.kak
+} config %{
+    source "%val{config}/coq.kak"
+}
+
 
 
 # custom commands concerning x11
