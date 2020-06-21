@@ -19,10 +19,12 @@ map global normal <c-n> gl
 map global normal k b    ; map global normal K B
 map global normal j w    ; map global normal J W
 
-map global user   r <c-u>; map global user   R <c-b>
-map global user   h <c-d>; map global user   H <c-f>
-map global user   t <a-h>; map global user   T Gi
-map global user   n <a-l>; map global user   N Gl
+map global user   r <c-u> -docstring "scroll half page up"
+map global user   R <c-b> -docstring "scroll one page up"
+map global user   h <c-d> -docstring "scroll half page down"
+map global user   H <c-f> -docstring "scroll one page down"
+#map global user   t <a-h>; map global user   T Gi
+#map global user   n <a-l>; map global user   N Gl
 
 map global normal l n    ; map global normal L N
 map global normal f <a-n>; map global normal F <a-N>
@@ -32,11 +34,6 @@ map global insert <c-t> <c-n>
 
 map global normal <space> ,
 map global normal <ret> <space>
-
-hook global WinSetOption filetype=(rust|ocaml) %{
-    map window user t :lsp-hover<ret>
-}
-
 
 
 # An overview of the whole keymap
