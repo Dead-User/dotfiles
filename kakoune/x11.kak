@@ -5,7 +5,7 @@ define-command term \
   -shell-completion \
   -docstring "open a new popup (floating) terminal"  %{
       nop %sh{
-          setsid -f new-terminal $@ < /dev/null > /dev/null 2>&1 &
+          setsid -f new-terminal $@ </dev/null >/dev/null 2>&1 &
       }
   }
 
@@ -15,7 +15,7 @@ define-command tab \
   -docstring "do stuffs in a new tab (terminal)" \
   %{
         term --no-popup --exec kak -c %val{session} -e "'%arg{@}'"
-        echo kak -c %val{session} -e "'%arg{@}'"
+        # echo kak -c %val{session} -e "'%arg{@}'"
   }
 
 define-command tabq \
