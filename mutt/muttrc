@@ -1,0 +1,32 @@
+
+set spoolfile = "~/Mail/outlook/Inbox"
+# named-mailboxes "outlook" "~/Mail/outlook/Inbox"
+fcc-hook .* "~/Mail/outlook/Inbox":
+set editor = kak
+
+subscribe caml-list@inria.fr
+
+bind index r previous-entry
+bind index h next-entry
+bind index R half-up
+bind index H half-down
+
+bind pager r previous-line
+bind pager h next-line
+bind pager R half-up
+bind pager H half-down
+bind pager t previous-entry
+bind pager n next-entry
+
+bind index,pager l search-next
+bind index,pager f search-opposite
+bind index,pager \Cr reply
+
+# unbind index g
+bind index gg first-entry
+bind index ge last-entry
+
+
+color normal white default
+color status white blue
+color search white blue
