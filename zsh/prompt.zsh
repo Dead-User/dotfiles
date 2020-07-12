@@ -1,4 +1,3 @@
-#!/bin/zsh
 
 function __compress_path () {
   local pwd=$1
@@ -46,4 +45,5 @@ if [[ $EUID -eq 0 ]]; then
 else
   local color='#ffd400'
 fi
+prompt off
 export PROMPT=' %F{'$color'}$(__compress_path)%f > '
