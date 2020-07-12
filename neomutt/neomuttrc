@@ -24,7 +24,7 @@ bind index,pager \Cr reply
 
 unbind index g
 bind index gg first-entry
-bind index G  last-entry
+bind index ge last-entry
 
 
 color normal white default
