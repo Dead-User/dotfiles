@@ -19,8 +19,8 @@ EXTRA_INITS=$(
     # custom layout script for the 'sys' workspace
     echo -n exec --no-startup-id
     echo \"i3-msg \'workspace 5:sys\; append_layout ~/.config/i3/layouts/layout-sys-tabbed.json\'\"
-    echo exec $TERMINAL_CMD --class=htop    --title=htop -e htop
-    echo exec $TERMINAL_CMD --class=vimpc   --title=vimpc -e vimpc
-    echo exec $TERMINAL_CMD --class=neomutt --title=neomutt -e neomutt
+    echo exec $TERMINAL_CMD --class=htop  --title=htop  -e htop
+    echo exec $TERMINAL_CMD --class=vimpc --title=vimpc -e vimpc
+    echo exec $TERMINAL_CMD --class=mutt  --title=mutt  -e mutt
     echo exec $TERMINAL_CMD
 )
