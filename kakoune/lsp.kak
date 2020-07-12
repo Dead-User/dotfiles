@@ -1,5 +1,9 @@
 
-# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+evaluate-commands %sh{
+    if kak-lsp --help >/dev/null; then
+        kak-lsp --kakoune -s $kak_session
+    fi
+}
 hook global WinSetOption filetype=(rust|ocaml|lua) %{
    lsp-enable-window
    map window user t :lsp-hover<ret>

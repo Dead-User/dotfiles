@@ -5,22 +5,29 @@ add-highlighter global/ number-lines -relative -hlcursor
 
 
 # packages
-source "~/.local/share/plug-kak/plug.kak/rc/plug.kak"
-set-option global plug_install_dir %sh{ echo "$HOME/.local/share/plug-kak" }
+source "~/.local/share/plug.kak/plug.kak/rc/plug.kak"
+set-option global plug_install_dir %sh{ echo "$HOME/.local/share/plug.kak" }
 
 plug "andreyorst/plug.kak" noload
 
-plug "ul/kak-lsp" do %{
-    cargo build --release --locked
-    ln -sf $kak_opt_plug_install_dir/kak-lsp/target/release/kak-lsp ~/.cargo/bin/
-} branch "master" tag "v7.0.0" config %{
-    source "%val{config}/lsp.kak"
+evaluate-commands %sh{
+    if kak-lsp --help >/dev/null; then
+        echo 'source "%val{config}/lsp.kak"'
+    else
+        echo '
+            plug "ul/kak-lsp" do %{
+                cargo build --release --locked
+                ln -sf $kak_opt_plug_install_dir/kak-lsp/target/release/kak-lsp ~/.cargo/bin/
+            } branch "master" tag "v7.0.0" config %{
+                source "%val{config}/lsp.kak"
+            }
+        '
+    fi
 }
 
 plug "delapouite/kakoune-livedown"
 
-# plug "coqoune" load-path "~/Projects/coq/coqoune" subset %{ #}
-plug "guest0x0/coqoune" subset %{
+plug "guest0x0/coqoune" load-path '~/Projects/coq/coqoune' subset %{
     coqoune.kak
 } config %{
     source "%val{config}/coq.kak"
