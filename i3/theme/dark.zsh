@@ -1,17 +1,17 @@
 
 #                        border  background   text    indicator child-border
-COLOR_FOCUSED=(         '#202020' '#FEEEED' '#000000' '#2E9EF4'  '#FEEEED' )
+COLOR_FOCUSED=(         '#202020' '#202020' '#FEEEED' '#2E9EF4'  '#FFFFFF' )
 COLOR_UNFOCUSED=(       '#404040' '#404040' '#FEEEED' '#2E9EF4'  '#222222' )
-COLOR_FOCUSED_INACTIVE=('#202020' '#FEEEED' '#000000' '#FEEEED'  '#222222' )
+COLOR_FOCUSED_INACTIVE=('#303030' '#303030' '#FEEEED' '#FEEEED'  '#FFFFFF' )
 
 BG_SET=""
 
 # FONTS=('Kochi Mincho 12' 'WenQuanYi Micro Hei Mono 12' 'Monaco 12')
-FONTS=('WenQuanYi Micro Hei Mono 12' 'Monaco 12')
+FONTS=('Sarasa Gothic CL 12' 'Iosevka Monaco 12')
 
 TERMINAL_CMD='alacritty'
 
-PROGRAM_LAUNCHER="dmenu_run -i -fn Monaco-10 -nb '#202020' -nf '#EBE4DA' -sb '#404040' -sf '#EBE4DA'"
+PROGRAM_LAUNCHER="dmenu_run -i -fn 'Iosevka Monaco-12' -nb '#202020' -nf '#EBE4DA' -sb '#404040' -sf '#EBE4DA'"
 
 EXTRA_SETTINGS=""
 
@@ -23,5 +23,4 @@ EXTRA_INITS=$(
     echo exec $TERMINAL_CMD --class=vimpc   --title=vimpc -e vimpc
     echo exec $TERMINAL_CMD --class=neomutt --title=neomutt -e neomutt
     echo exec $TERMINAL_CMD
-    # echo exec i3-layout-sys
 )
