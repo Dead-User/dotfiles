@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 x_coord=$(xdotool getmouselocation | awk '{print $1}' | awk -F: '{print $2}')
 if [ $x_coord -gt 1920 ]; then

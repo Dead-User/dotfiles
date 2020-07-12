@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 bar_name='bar'$1
 # Terminate already running bar instances

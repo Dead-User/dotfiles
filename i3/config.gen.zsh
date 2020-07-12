@@ -1,4 +1,5 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
+
 # This is my i3 config v2.0. Instead of a static config file,
 # this is a config generator. That is, it dynamically generate
 # config(s) with different settings

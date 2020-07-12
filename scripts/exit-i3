@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 while [ 1 ]; do
-  read -p "Are you sure you want to quit i3? [y/n]"
+  echo -n "Are you sure you want to quit i3? [y/n]"
+  read
   if [ $REPLY = "y" -o $REPLY = 'yes' ]; then
     i3-msg 'exit'
     exit 0
