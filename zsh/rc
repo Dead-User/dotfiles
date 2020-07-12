@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 if [[ -o NO_RCS ]]; then
-    source "$HOM/.zshenv"
+    source "$HOME/.zshenv"
 fi
 
 # Lines configured by zsh-newuser-install
@@ -22,13 +22,21 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search 
 
 # load plugins
-source "$ZSH_PLUG_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$ZSH_PLUG_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ -d "$ZSH_PLUG_PATH" ]; then
+    source "$ZSH_PLUG_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    source "$ZSH_PLUG_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 # z.lua
-eval "$(lua $ZSH_PLUG_PATH/z.lua/z.lua --init zsh enhanced)"
-alias zb='z -b'
-alias zc='z -c $PWD'
+if [ -d "$ZSH_PLUG_PATH" ]; then
+    eval "$(lua $ZSH_PLUG_PATH/z.lua/z.lua --init zsh enhanced)"
+elif z --help >/dev/null; then
+    eval "$(z --init zsh enhanced)"
+fi
+if z -h >/dev/null; then
+    alias zb='z -b'
+    alias zc='z -c $PWD'
+fi
 
 # alias
 # 'sudo kak', with config properly loaded
@@ -39,12 +47,12 @@ alias ls='ls --color=auto'
 
 
 # prompt
-source "$ZSH_DOT_PATH/prompt"
+source "$ZSH_DOT_PATH/prompt.zsh"
 export PROMPT_PATH_MAX_LEN=10
 
 # colors
-source "$ZSH_DOT_PATH/key-bindings"
-source "$ZSH_DOT_PATH/highlights"
+source "$ZSH_DOT_PATH/key-bindings.zsh"
+source "$ZSH_DOT_PATH/highlights.zsh"
 
 # options
 setopt PROMPT_SUBST
