@@ -17,10 +17,8 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #efdfef
 foreground-alt = #efdfef
 primary = #ffb52a
@@ -31,9 +29,15 @@ blue = #00a0ff
 ice = #00e0ff
 orange = #ffa000
 
+[fonts]
+latin = Iosevka Monaco:pixelsize=13
+cjk = Sarasa Gothic CL:pixelsize=14
+icon = Font Awesome 5 Free:size=12:style=solid
+
+; =========================================================
 ; Primary bar
+; =========================================================
 [bar/bar0]
-;monitor = ${env:MONITOR:HDMI-1}
 monitor = DP-1
 width = 100%
 height = 20
@@ -58,9 +62,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Monaco:pixelsize=12;1
-font-1 = "Font\ Awesome\ 5\ Free:size=12:style=solid"
-font-2 = "Wen\ Quan\ Yi\ Micro\ Hei\ Mono:pixelsize=15"
+font-0 = ${fonts.latin}
+font-1 = ${fonts.cjk}
+font-2 = ${fonts.icon}
 
 modules-left = alsa my-mpd-status mpd
 modules-center = current-monitor i3
@@ -78,12 +82,15 @@ modules-right = wlan battery memory cpu date
 
 ;scroll-up = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
-
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 
+
+
+; =========================================================
 ; Secondary bar
+; =========================================================
 [bar/bar1]
 monitor = eDP-1
 width = 100%
@@ -111,9 +118,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Monaco:pixelsize=12;1
-font-1 = "Font\ Awesome\ 5\ Free:size=12:style=solid"
-font-2 = "Wen\ Quan\ Yi\ Micro\ Hei\ Mono:pixelsize=14"
+font-0 = ${fonts.latin}
+font-1 = ${fonts.cjk}
+font-2 = ${fonts.icon}
 
 modules-left = notification alsa my-mpd-status mpd 
 modules-center = current-monitor i3
@@ -204,7 +211,7 @@ label-urgent-padding = 0
 
 [module/my-mpd-status]
 type = custom/script
-exec = my-mpd-status -p 0.5 -l 15
+exec = my-mpd-status.zsh -p 0.5 -w 15
 tail = true
 
 format = <label>
@@ -222,12 +229,14 @@ label-song-ellipsis = true
 label-song =
 ; " %title%"
 
-bar-progress-width = 10
+bar-progress-width = 8
 bar-progress-indicator = |
+bar-progress-indicator-font = 3
 bar-progress-fill = ─
-bar-progress-fill-font = 1
+bar-progress-fill-font = 3
 bar-progress-fill-foreground = #0af
 bar-progress-empty = ─
+bar-progress-empty-font = 3
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -238,12 +247,12 @@ label = BL
 bar-width = 10
 bar-indicator = |
 bar-indicator-foreground = #fff
-bar-indicator-font = 1
+bar-indicator-font = 3
 bar-fill = ─
-bar-fill-font = 1
+bar-fill-font = 3
 bar-fill-foreground = #9f78e1
 bar-empty = ─
-bar-empty-font = 1
+bar-empty-font = 3
 bar-empty-foreground = ${colors.foreground-alt}
 
 [module/backlight-acpi]
@@ -310,7 +319,7 @@ format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
 label-muted = sound muted
 
-bar-volume-width = 10
+bar-volume-width = 8
 bar-volume-foreground-0 = ${colors.green}
 bar-volume-foreground-1 = ${colors.green}
 bar-volume-foreground-2 = ${colors.green}
@@ -320,11 +329,11 @@ bar-volume-foreground-5 = ${colors.orange}
 bar-volume-foreground-6 = ${colors.alert}
 bar-volume-gradient = false
 bar-volume-indicator = |
-bar-volume-indicator-font = 2
+bar-volume-indicator-font = 3
 bar-volume-fill = ─
-bar-volume-fill-font = 2
+bar-volume-fill-font = 3
 bar-volume-empty = ─
-bar-volume-empty-font = 2
+bar-volume-empty-font = 3
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
