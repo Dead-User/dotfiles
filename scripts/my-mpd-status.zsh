@@ -64,7 +64,7 @@ spaces="                 "
 while [ 1 ]; do
     sleep $pause
     name=$(mpc -f %file% current \
-      | sed -n 's/.\w+$//g; p' \
+      | sed -n 's/.\w\+$//g; p' \
       | awk -F/ '{ print $2 }')
     if [[ "$name" != "${buffer:1:(${#name})}" ]]; then
         offset=0
