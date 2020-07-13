@@ -302,8 +302,8 @@ echo mode \"menu\" \{
   echo bindsym n     exec mpc next
   echo bindsym space exec mpc toggle
 
-  echo bindsym q     exec xbacklight -inc 10
-  echo bindsym a     exec xbacklight -dec 10
+  echo bindsym q     exec light -A 10
+  echo bindsym a     exec light -U 10
 
   echo bindsym Return mode \"default\"
   echo bindsym Escape mode \"default\"
