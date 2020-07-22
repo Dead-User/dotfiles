@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 BG_SET=$1
 BG_COUNT=$(ls $IMAGES_PATH/BG/$BG_SET | wc -w)
