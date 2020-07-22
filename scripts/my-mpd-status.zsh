@@ -71,11 +71,12 @@ while [ 1 ]; do
         range=0
         hole=$width
         buffer=" $name      $name"
+        printf "name: %s\n" ${#name}
     fi
     if [[ $((offset + 1)) -eq $((${#buffer} - ${#name})) ]]; then
         offset=0
     fi
-    if [[ $offset -eq 0 && $range -ge ${#name} ]]; then
+    if [[ $offset -eq 1 && $range -ge ${#name} || -z "$name" ]]; then
         printf '%s\n' "$name"
         continue
     fi
