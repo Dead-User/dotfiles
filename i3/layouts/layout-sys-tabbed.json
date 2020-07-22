@@ -85,8 +85,8 @@
             "swallows": [
                {
                   "class": "^Alacritty$",
-                  "instance": "^neomutt$",
-                  "title": "^neomutt$"
+                  "instance": "^mutt$",
+                  "title": "^mutt$"
                }
             ],
             "type": "con"
