@@ -1,0 +1,16 @@
+
+echo "
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = \" %Y-%m-%d\"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+
+label = %date% %time%
+"
