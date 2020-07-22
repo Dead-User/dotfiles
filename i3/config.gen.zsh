@@ -97,22 +97,15 @@ echo floating_modifier             $Mod
 for name index in ${(kv)WS_INDEX}; do
     echo workspace $index:$name output Display${WS_DISPLAY[$name]}
 done
-# echo 'workspace "1:web"   output $Display2'
-# echo 'workspace "2:edit"  output $Display2'
-# echo 'workspace "3:win"   output $Display2'
-# echo 'workspace "4:media" output $Display2'
-# echo 'workspace "5:game"  output $Display2'
-# echo 'workspace "6:sys"   output $Display1'
-# echo 'workspace "7:net"   output $Display1'
 
 echo for_window \[class=\"feh\"    \] floating enable
 echo for_window \[class=\"feh\"    \] border   none
  
 # it is 'firefox' on arch, but 'Firefox' on gentoo,
 # and 'Nightly' for newer versions...
-echo for_window \[class=\"Firefox\"\] border none
-echo for_window \[class=\"firefox\"\] border none
-echo for_window \[class=\"Nightly\"\] border none
+# echo for_window \[class=\"Firefox\"\] border none
+# echo for_window \[class=\"firefox\"\] border none
+# echo for_window \[class=\"Nightly\"\] border none
 
 echo for_window \[class=\"Wine\"   \] floating enable
 
@@ -143,8 +136,6 @@ echo $EXTRA_SETTINGS
 echo exec launch-bar 0
 echo exec launch-bar 1
 
-echo exec mpd
-
 # input method
 echo exec fcitx
 
@@ -153,7 +144,6 @@ echo $EXTRA_INITS
 if [[ ! -z $BGSET ]]; then
     echo exec random-bg $BGSET
 fi
-
 
 
 ########## Part VI. Key Bindings ##########
