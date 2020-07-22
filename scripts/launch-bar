@@ -9,4 +9,4 @@ ps -ef \
 # Wait until the processes have been shut down
 # while pgrep -u $UID -x polybar >/dev/null; do sleep 1; end
 
-polybar $bar_name || exit 0
+polybar $bar_name -c <(~/.config/polybar/config.gen.zsh) || exit 0
