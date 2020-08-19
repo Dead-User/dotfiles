@@ -5,6 +5,7 @@
 /fcitx/dbus
 /fcitx/pinyin
 /fcitx/log
+/fcitx/profile_*
 /nvim/plugged
 /nvim/.netrwhist
 /nvim/autoload
