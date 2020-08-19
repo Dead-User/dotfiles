@@ -9,4 +9,6 @@
 /nvim/.netrwhist
 /nvim/autoload
 */.git/*
+/emacs/auto-save-list
+/emacs/elpa
 
